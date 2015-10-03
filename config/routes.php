@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: asim
- * Date: 10/3/15
- * Time: 6:55 PM
- */
-
 use yii\web\UrlRule;
+
 return array(
     'users/<alias>'=>'user-management/user',
     'roles/<alias>'=>'user-management/role',
