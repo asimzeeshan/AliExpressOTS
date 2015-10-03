@@ -2,11 +2,10 @@
 
 namespace app\models;
 
-use webvimark\modules\UserManagement\models\User;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\Expression;
+use Yii;
 
 /**
  * This is the model class for table "payment_method".
@@ -27,14 +26,6 @@ class PaymentMethod extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'payment_method';
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['created_by' => 'user_id']);
     }
 
     /**
