@@ -20,17 +20,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'delivery_date')->textInput() ?>
 
-    <?= $form->field($model, 'arrived_in')->textInput() ?>
+    <?= $form->field($model, 'arrived_in')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'paid_with')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

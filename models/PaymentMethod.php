@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\Expression;
 use Yii;
 
 /**
@@ -51,9 +54,7 @@ class PaymentMethod extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'required'],
-            [['created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['name', 'type'], 'required'],
             [['name', 'type'], 'string', 'max' => 20]
         ];
     }
@@ -67,10 +68,10 @@ class PaymentMethod extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'type' => 'Type',
-            'created_by' => 'Created By',
-            'created_at' => 'Created At',
-            'updated_by' => 'Updated By',
-            'updated_at' => 'Updated At',
+            'created_by' => 'Created by',
+            'created_at' => 'Created at',
+            'updated_by' => 'Updated by',
+            'updated_at' => 'Updated at',
         ];
     }
 }

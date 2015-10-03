@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\Expression;
 use Yii;
 
 /**
@@ -57,8 +60,7 @@ class Courier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'created_at', 'modified_at'], 'required'],
-            [['created_at', 'modified_at'], 'safe'],
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 75],
             [['url'], 'string', 'max' => 255]
         ];
@@ -73,8 +75,10 @@ class Courier extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'url' => 'Url',
-            'created_at' => 'Created At',
-            'modified_at' => 'Modified At',
+            'created_by' => 'Created by',
+            'created_at' => 'Created at',
+            'updated_by' => 'Updated by',
+            'updated_at' => 'Updated at',
         ];
     }
 }

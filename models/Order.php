@@ -2,7 +2,9 @@
 
 namespace app\models;
 
-use Faker\Provider\de_DE\Payment;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\Expression;
 use Yii;
 
 /**
@@ -72,9 +74,8 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['price', 'order_date', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'required'],
-            [['order_date', 'delivery_date', 'created_at', 'updated_at'], 'safe'],
-            [['arrived_in', 'created_by', 'updated_by'], 'integer'],
+            [['price', 'order_date'], 'required'],
+            [['order_date', 'delivery_date'], 'safe'],
             [['price'], 'string', 'max' => 6],
             [['description'], 'string', 'max' => 48],
             [['paid_with'], 'string', 'max' => 5]
@@ -94,10 +95,10 @@ class Order extends \yii\db\ActiveRecord
             'delivery_date' => 'Delivery Date',
             'arrived_in' => 'Arrived In',
             'paid_with' => 'Paid With',
-            'created_by' => 'Created By',
-            'created_at' => 'Created At',
-            'updated_by' => 'Updated By',
-            'updated_at' => 'Updated At',
+            'created_by' => 'Created by',
+            'created_at' => 'Created at',
+            'updated_by' => 'Updated by',
+            'updated_at' => 'Updated at',
         ];
     }
 }
