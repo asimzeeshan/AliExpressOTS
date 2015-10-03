@@ -1,3 +1,14 @@
+#################
+## YiiFramework
+#################
+assets/*
+!assets/.gitkeep
+protected/runtime/*
+!protected/runtime/.gitkeep
+protected/config/main.php
+tmp/*
+yii/demos/*
+
 # phpstorm project files
 .idea
 
