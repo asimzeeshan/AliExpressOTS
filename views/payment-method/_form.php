@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'type')->dropDownList(['SCB-DebitCard' => 'SCB - Visa Debit Card', 'SCB-Visa' => 'SCB - Visa Credit Card', 'SCB-MasterCard' => 'SCB - MasterCard Credit Card', 'BAL-Visa' => 'BAL - Visa Credit Card']); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
