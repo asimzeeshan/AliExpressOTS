@@ -24,6 +24,34 @@ class Courier extends \yii\db\ActiveRecord
     }
 
     /**
+     * Relationship with Shipments
+     */
+    public function getShipments()
+    {
+        return $this->hasMany(Shipment::className(), ['courier_id' => 'id']);
+    }
+
+    /**
+     * TimestampBehavior & BlameableBehavior to update created_* and updated_* fields
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+        ];
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
