@@ -44,7 +44,7 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            //'rules' => require(__DIR__ . '/routes.php'),
+            'rules' => require(__DIR__ . '/routes.php'),
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],
