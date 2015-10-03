@@ -74,7 +74,7 @@ class Courier extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'url' => 'Url',
+            'url' => 'URL',
             'created_by' => 'Created by',
             'created_at' => 'Created at',
             'updated_by' => 'Updated by',

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Shipment */
 
-$this->title = 'Create Shipment';
+$this->title = 'New Shipment';
 $this->params['breadcrumbs'][] = ['label' => 'Shipments', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

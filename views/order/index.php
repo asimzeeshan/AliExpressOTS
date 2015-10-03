@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('New Order', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -29,6 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'delivery_date',
             // 'arrived_in',
             // 'paid_with',
+            // 'is_disputed',
+            // 'refund_status',
+            // 'notes:ntext',
             // 'created_by',
             // 'created_at',
             // 'updated_by',

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Courier */
 
-$this->title = 'Create Courier';
+$this->title = 'New Courier';
 $this->params['breadcrumbs'][] = ['label' => 'Couriers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

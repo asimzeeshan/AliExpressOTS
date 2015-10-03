@@ -77,7 +77,7 @@ class Shipment extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'order_id' => 'Order ID',
-            'courier_id' => 'Courier ID',
+            'courier_id' => 'Courier',
             'tracking_id' => 'Tracking ID',
             'created_by' => 'Created by',
             'created_at' => 'Created at',

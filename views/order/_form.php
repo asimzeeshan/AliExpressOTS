@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Order */
@@ -14,7 +15,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'order_date')->textInput() ?>
+    <?= $form->field($model, 'order_date')->widget(\yii\jui\DatePicker::classname(), [
+        //'language' => 'ru',
+        //'dateFormat' => 'yyyy-MM-dd',
+    ]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
@@ -23,6 +27,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'arrived_in')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'paid_with')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'is_disputed')->textInput() ?>
+
+    <?= $form->field($model, 'refund_status')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
