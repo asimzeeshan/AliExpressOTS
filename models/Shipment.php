@@ -40,6 +40,13 @@ class Shipment extends \yii\db\ActiveRecord
         return $this->hasOne(Package::className(), ['id' => 'order_id']);
     }
 
+    public static function getAllPackage($id)
+    {
+        return Shipment::find()->where([
+            'order_id' => $id,
+        ])->all();
+    }
+
     public function getCourier()
     {
         return $this->hasOne(Courier::className(), ['id' => 'courier_id']);

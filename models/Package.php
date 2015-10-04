@@ -39,7 +39,7 @@ class Package extends \yii\db\ActiveRecord
     /**
      * Relationship with Shipments
      */
-    public function getShipments()
+    public function getShipment()
     {
         return $this->hasMany(Shipment::className(), ['order_id' => 'id']);
     }

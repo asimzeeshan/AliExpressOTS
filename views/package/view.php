@@ -44,11 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'    => 'text'
             ],
             [
-                'attribute' => 'paid_with',
-                'value'     => $model->paymentMethod->name,
-                'format'    => 'text'
-            ],
-            [
                 'attribute' => 'is_disputed',
                 'value'     => $model->is_disputed==1?"Yes":"No",
                 'format'    => 'text'

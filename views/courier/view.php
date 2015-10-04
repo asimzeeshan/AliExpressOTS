@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Courier */
@@ -37,5 +38,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $shipmentData,
+        'pager' => -1,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'ae_order_id',
+            'shipment_date',
+            'tracking_id',
+            'delivery_date',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+    <?php print_r($shipmentData); ?>
 
 </div>

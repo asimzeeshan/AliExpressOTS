@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\Shipment;
 use Yii;
 use app\models\Courier;
 use app\models\CourierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Query;
 
 /**
  * CourierController implements the CRUD actions for Courier model.
@@ -48,8 +50,18 @@ class CourierController extends Controller
      */
     public function actionView($id)
     {
+//        $query = new Query;
+//        $query->select('s.order_id, s.courier_id, s.shipment_date, s.tracking_id, p.delivery_date, p.ae_order_id')
+//            ->from('shipment s')
+//            ->innerJoin('package p')
+//            ->where('p.id = s.order_id')
+//            ->andWhere('p.delivery_date = "0000-00-00"');
+//        $shipmentData = $query->all();
+        $shipment = Shipment::getAllPackage($id);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'shipmentData' => $shipment,
         ]);
     }
 
