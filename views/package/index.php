@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PackageSearch */
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'     => function ($data) {
                     return $data->paymentMethod->name;
                 },
-                'format'    => 'text'
+                'filter' => Html::activeDropDownList($searchModel, 'paid_with', ArrayHelper::map(\app\models\PaymentMethod::find()->orderBy(['name'=>SORT_ASC,])->asArray()->all(), 'id', 'name'),['class'=>'form-control','prompt' => 'Select...']),
             ],
             // 'is_disputed',
             // 'refund_status',
