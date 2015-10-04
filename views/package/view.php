@@ -35,11 +35,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'delivery_date',
             'arrived_in',
-            'paid_with',
+            [
+                'attribute' => 'paid_with',
+                'value'     => $model->paymentMethod->name,
+                'format'    => 'text'
+            ],
             'is_disputed',
             'refund_status',
             'notes:ntext',
             'created_by',
+            [
+                'attribute' => 'created_by',
+                'value'     => $model->user->username,
+                'format'    => 'text'
+            ],
             'created_at',
             'updated_by',
             'updated_at',

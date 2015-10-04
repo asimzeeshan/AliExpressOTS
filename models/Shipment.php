@@ -32,9 +32,9 @@ class Shipment extends \yii\db\ActiveRecord
     /**
      * Relationship with Order
      */
-    public function getOrder()
+    public function getPackage()
     {
-        return $this->hasOne(Order::className(), ['id' => 'order_id']);
+        return $this->hasOne(Package::className(), ['id' => 'order_id']);
     }
 
     public function getCourier()
@@ -42,7 +42,7 @@ class Shipment extends \yii\db\ActiveRecord
         return $this->hasOne(Courier::className(), ['id' => 'courier_id']);
     }
 
-    public function getOrderID()
+    public function getPackageID()
     {
         return $this->package->ae_order_id;
     }
@@ -52,7 +52,7 @@ class Shipment extends \yii\db\ActiveRecord
         return $this->courier->name;
     }
 
-    public function getOrdersData() {
+    public function getPackagesData() {
         return $this->id.' - $'.$this->price.' - '.$this->description;
     }
 

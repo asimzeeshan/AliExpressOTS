@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             [
-                'attribute' =>  'orderID',
+                'attribute' =>  'packageID',
                 'label'=>'AliExpress Order ID',
             ],
             [

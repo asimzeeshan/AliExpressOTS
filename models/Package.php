@@ -52,6 +52,10 @@ class Package extends \yii\db\ActiveRecord
         return $this->hasOne(PaymentMethod::className(), ['id' => 'paid_with']);
     }
 
+    function getPaymentMethodName() {
+        return $this->PaymentMethod->name;
+    }
+
     /**
      * TimestampBehavior & BlameableBehavior to update created_* and updated_* fields
      */
