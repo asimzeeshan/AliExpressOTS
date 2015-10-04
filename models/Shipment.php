@@ -37,6 +37,25 @@ class Shipment extends \yii\db\ActiveRecord
         return $this->hasOne(Order::className(), ['id' => 'order_id']);
     }
 
+    public function getCourier()
+    {
+        return $this->hasOne(Courier::className(), ['id' => 'courier_id']);
+    }
+
+    public function getOrderID()
+    {
+        return $this->orders->ae_order_id;
+    }
+
+    public function getCourierName()
+    {
+        return $this->courier->name;
+    }
+
+    public function getOrdersData() {
+        return $this->id.' - $'.$this->price.' - '.$this->description;
+    }
+
     /**
      * TimestampBehavior & BlameableBehavior to update created_* and updated_* fields
      */

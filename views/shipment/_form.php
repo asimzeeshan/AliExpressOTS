@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Shipment */
@@ -12,9 +13,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'order_id')->textInput() ?>
+    <?php $allOrdersData = \app\models\Package::find()->orderBy('id')->all();
+    $data = array();
+    foreach ($allOrdersData as $orderData)
+        $allOrderIDs[$orderData->id] = $orderData->ae_order_id.' - $'.$orderData->price.' - '.$orderData->description; ?>
+    <?= $form->field($model, 'order_id')->dropDownList($allOrderIDs)->label('Order ID') ?>
 
-    <?= $form->field($model, 'courier_id')->textInput() ?>
+    <?php $allCouriers = ArrayHelper::map(\app\models\Courier::find()->orderBy('id')->all(), 'id', 'name'); ?>
+    <?= $form->field($model, 'courier_id')->dropDownList($allCouriers)->label('Courier') ?>
 
     <?= $form->field($model, 'tracking_id')->textInput(['maxlength' => true]) ?>
 

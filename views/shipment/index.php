@@ -23,13 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'order_id',
-            'courier_id',
+            [
+                'attribute' =>  'orderID',
+                'label'=>'AliExpress Order ID',
+            ],
+            [
+                'attribute' =>  'courierName',
+                'label'=>'Courier',
+            ],
             'tracking_id',
-            'created_by',
-            // 'created_at',
+            // 'created_by',
+            'created_at',
             // 'updated_by',
-            // 'updated_at',
+            'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
