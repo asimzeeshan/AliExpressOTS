@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'order_id',
             'courier_id',
+            'shipment_date',
             'tracking_id',
             'created_by',
             'created_at',

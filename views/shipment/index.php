@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' =>  'courierName',
                 'label'=>'Courier',
             ],
+            'shipment_date',
             'tracking_id',
             // 'created_by',
             'created_at',

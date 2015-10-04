@@ -27,9 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'price',
             'order_date',
             'description',
-            'delivery_date',
+            //'delivery_date',
             // 'arrived_in',
-            // 'paid_with',
+            [
+                'attribute' => 'paid_with',
+                'value'     => function ($data) {
+                    return $data->paymentMethod->name;
+                },
+                'format'    => 'text'
+            ],
             // 'is_disputed',
             // 'refund_status',
             // 'notes:ntext',
@@ -37,6 +43,21 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_at',
             // 'updated_by',
             // 'updated_at',
+            [
+                'label'   => 'status',
+                'format' => 'raw',
+                'value'   => function ($data) {
+                    if ($data->is_disputed==1) {
+                        return "Disputed";
+                    } else if ($data->delivery_date<>"0000-00-00") {
+                        return "Received on ".$data->delivery_date;
+                    } else if ($data->delivery_date=="0000-00-00" && \app\models\Shipment::isShipped($data->id)==true) {
+                        return "en-route since ".\app\models\Package::getDaysElapsed($data->id);
+                    } else {
+                        return "Shipping...";
+                    }
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

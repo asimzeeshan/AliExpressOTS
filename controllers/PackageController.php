@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Package;
+use app\models\Shipment;
 use app\models\PaymentMethod;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;

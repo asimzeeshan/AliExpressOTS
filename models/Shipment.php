@@ -2,9 +2,11 @@
 
 namespace app\models;
 
+use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\Expression;
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
@@ -13,6 +15,7 @@ use Yii;
  * @property integer $id
  * @property integer $order_id
  * @property integer $courier_id
+ * @property string $shipment_date
  * @property string $tracking_id
  * @property integer $created_by
  * @property string $created_at
@@ -56,6 +59,31 @@ class Shipment extends \yii\db\ActiveRecord
         return $this->id.' - $'.$this->price.' - '.$this->description;
     }
 
+    public function shippingDate($order_id) {
+        $check = Shipment::find()->where( [ 'order_id' => $order_id ] )->exists();
+
+        if ($check==1) {
+            $data = Shipment::findOne($order_id);
+            if (!empty($data)) {
+                $data = $data->toArray();
+            }
+            return $data['shipment_date'];
+
+        } else {
+            return false;
+        }
+    }
+
+    public function isShipped($order_id) {
+        $check = Shipment::find()->where( [ 'order_id' => $order_id ] )->exists();
+
+        if ($check==1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * TimestampBehavior & BlameableBehavior to update created_* and updated_* fields
      */
@@ -82,8 +110,9 @@ class Shipment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'courier_id', 'tracking_id'], 'required'],
+            [['order_id', 'courier_id', 'shipment_date', 'tracking_id'], 'required'],
             [['order_id', 'courier_id'], 'integer'],
+            [['shipment_date'], 'safe'],
             [['tracking_id'], 'string', 'max' => 30],
         ];
     }
@@ -97,6 +126,7 @@ class Shipment extends \yii\db\ActiveRecord
             'id' => 'ID',
             'order_id' => 'Order ID',
             'courier_id' => 'Courier',
+            'shipment_date' => 'Shipment Date',
             'tracking_id' => 'Tracking ID',
             'created_by' => 'Created by',
             'created_at' => 'Created at',

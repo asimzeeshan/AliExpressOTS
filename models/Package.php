@@ -52,8 +52,34 @@ class Package extends \yii\db\ActiveRecord
         return $this->hasOne(PaymentMethod::className(), ['id' => 'paid_with']);
     }
 
-    function getPaymentMethodName() {
-        return $this->PaymentMethod->name;
+    /**
+     * Relationship with User
+     */
+    public function getCreatedByUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * Relationship with User
+     */
+    public function getUpdatedByUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    public function getDaysElapsed($id) {
+        $shipment_date = Shipment::shippingDate($id);
+
+        $now = time(); // or your date as well
+        $your_date = strtotime($shipment_date);
+        $datediff = $now - $your_date;
+        $days_elapsed = floor($datediff/(60*60*24));
+        return $days_elapsed." days";
+    }
+
+    public function getShipmentDate($order_id) {
+        return Shipment::isShipped($order_id);
     }
 
     /**

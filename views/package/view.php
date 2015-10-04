@@ -33,24 +33,43 @@ $this->params['breadcrumbs'][] = $this->title;
             'price',
             'order_date',
             'description',
-            'delivery_date',
-            'arrived_in',
+            [
+                'attribute' => 'delivery_date',
+                'value'     => $model->is_disputed==1?"N/A":($model->delivery_date=="0000-00-00"?"Waiting...":$model->delivery_date),
+                'format'    => 'text'
+            ],
             [
                 'attribute' => 'paid_with',
                 'value'     => $model->paymentMethod->name,
                 'format'    => 'text'
             ],
-            'is_disputed',
-            'refund_status',
+            [
+                'attribute' => 'paid_with',
+                'value'     => $model->paymentMethod->name,
+                'format'    => 'text'
+            ],
+            [
+                'attribute' => 'is_disputed',
+                'value'     => $model->is_disputed==1?"Yes":"No",
+                'format'    => 'text'
+            ],
+            [
+                'attribute' => 'refund_status',
+                'value'     => $model->is_disputed==1?$model->refund_status:"N/A",
+                'format'    => 'text'
+            ],
             'notes:ntext',
-            'created_by',
             [
                 'attribute' => 'created_by',
-                'value'     => $model->user->username,
+                'value'     => $model->createdByUser->username,
                 'format'    => 'text'
             ],
             'created_at',
-            'updated_by',
+            [
+                'attribute' => 'created_by',
+                'value'     => $model->updatedByUser->username,
+                'format'    => 'text'
+            ],
             'updated_at',
         ],
     ]) ?>

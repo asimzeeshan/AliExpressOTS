@@ -16,11 +16,16 @@ use yii\helpers\ArrayHelper;
     <?php $allOrdersData = \app\models\Package::find()->orderBy('id')->all();
     $data = array();
     foreach ($allOrdersData as $orderData)
-        $allOrderIDs[$orderData->id] = $orderData->ae_order_id.' - $'.$orderData->price.' - '.$orderData->description; ?>
+        $allOrderIDs[$orderData->id] = $orderData->ae_order_id.' - '.$orderData->price.' - '.$orderData->description; ?>
     <?= $form->field($model, 'order_id')->dropDownList($allOrderIDs)->label('Order ID') ?>
 
     <?php $allCouriers = ArrayHelper::map(\app\models\Courier::find()->orderBy('id')->all(), 'id', 'name'); ?>
     <?= $form->field($model, 'courier_id')->dropDownList($allCouriers)->label('Courier') ?>
+
+    <?= $form->field($model, 'shipment_date')->widget(\yii\jui\DatePicker::classname(), [
+        'options' => ['class' => 'form-control'],
+        'dateFormat' => 'yyyy-MM-dd',
+    ]) ?>
 
     <?= $form->field($model, 'tracking_id')->textInput(['maxlength' => true]) ?>
 
