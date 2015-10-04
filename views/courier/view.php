@@ -42,9 +42,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     $dataProvider = new ActiveDataProvider([
-        'query' => \app\models\Shipment::find()->where([
-            'order_id' => $model->id,
-        ]),
+        'query' => \app\models\Shipment::find()
+            ->innerJoin('package', '`shipment`.`order_id` = `package`.`id`')
+            ->where([
+                'shipment.courier_id' => $model->id,
+                'package.delivery_date' => "0000-00-00",
+            ])->with('package'),
         'pagination' => [
             'pageSize' => -1,
         ],
@@ -55,12 +58,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'ae_order_id',
+            'package.ae_order_id',
             'shipment_date',
             'tracking_id',
-            // 'delivery_date',
+            'package.delivery_date',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
