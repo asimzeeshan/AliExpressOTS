@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CourierSearch */
+/* @var $model app\models\PaymentMethodSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="courier-search">
+<div class="payment-method-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'url') ?>
+    <?= $form->field($model, 'type') ?>
 
     <?= $form->field($model, 'created_by') ?>
 

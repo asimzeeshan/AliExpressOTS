@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Courier;
-use yii\data\ActiveDataProvider;
+use app\models\CourierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,11 +32,11 @@ class CourierController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Courier::find(),
-        ]);
+        $searchModel = new CourierSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

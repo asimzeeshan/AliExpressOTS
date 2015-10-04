@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CourierSearch */
+/* @var $model app\models\ShipmentSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="courier-search">
+<div class="shipment-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,13 +17,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'order_id') ?>
 
-    <?= $form->field($model, 'url') ?>
+    <?= $form->field($model, 'courier_id') ?>
 
-    <?= $form->field($model, 'created_by') ?>
+    <?= $form->field($model, 'shipment_date') ?>
 
-    <?= $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'tracking_id') ?>
+
+    <?php // echo $form->field($model, 'created_by') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'updated_by') ?>
 

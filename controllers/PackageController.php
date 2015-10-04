@@ -4,9 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Package;
-use app\models\Shipment;
-use app\models\PaymentMethod;
-use yii\data\ActiveDataProvider;
+use app\models\PackageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -34,11 +32,11 @@ class PackageController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Package::find(),
-        ]);
+        $searchModel = new PackageSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
