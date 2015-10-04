@@ -44,7 +44,7 @@ class Shipment extends \yii\db\ActiveRecord
 
     public function getOrderID()
     {
-        return $this->orders->ae_order_id;
+        return $this->package->ae_order_id;
     }
 
     public function getCourierName()

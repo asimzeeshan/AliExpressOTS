@@ -37,7 +37,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Dashboard', 'url' => ['/site/index']],
-            ['label' => 'Orders', 'url' => ['/order']],
+            ['label' => 'Packages', 'url' => ['/package']],
             ['label' => 'Shipments', 'url' => ['/shipment']],
             ['label' => 'Couriers', 'url' => ['/courier']],
             ['label' => 'Payment Methods', 'url' => ['/payment-method']],
