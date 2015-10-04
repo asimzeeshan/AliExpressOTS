@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Courier */
@@ -39,20 +40,28 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $shipmentData,
-        'pager' => -1,
+    <?php
+    $dataProvider = new ActiveDataProvider([
+        'query' => \app\models\Shipment::find()->where([
+            'order_id' => $model->id,
+        ]),
+        'pagination' => [
+            'pageSize' => -1,
+        ],
+    ]);
+
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'ae_order_id',
+            // 'ae_order_id',
             'shipment_date',
             'tracking_id',
-            'delivery_date',
+            // 'delivery_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?php print_r($shipmentData); ?>
 
 </div>
