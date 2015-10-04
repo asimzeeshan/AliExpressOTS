@@ -70,12 +70,16 @@ class Package extends \yii\db\ActiveRecord
 
     public function getDaysElapsed($id) {
         $shipment_date = Shipment::shippingDate($id);
+        if ($shipment_date == "") {
+            return "0 days (".$shipment_date.")";
+        } else {
+            $now = time(); // or your date as well
+            $your_date = strtotime($shipment_date);
+            $datediff = $now - $your_date;
+            $days_elapsed = floor($datediff/(60*60*24));
 
-        $now = time(); // or your date as well
-        $your_date = strtotime($shipment_date);
-        $datediff = $now - $your_date;
-        $days_elapsed = floor($datediff/(60*60*24));
-        return $days_elapsed." days";
+            return $days_elapsed." days (".$shipment_date.")";
+        }
     }
 
     public function getShipmentDate($order_id) {

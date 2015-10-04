@@ -26,20 +26,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'ae_order_id',
-            'price',
-            'order_date',
-            'description',
-            //'delivery_date',
-            // 'arrived_in',
+
+            // 'id',
+            [
+                'attribute' => 'ae_order_id',
+                'options' => array('width' => 150),
+            ],
+            [
+                'attribute' => 'price',
+                'options' => array('width' => 60),
+            ],
+            [
+                'attribute' => 'order_date',
+                'options' => array('width' => 100),
+            ],
             [
                 'attribute' => 'paid_with',
                 'value'     => function ($data) {
                     return $data->paymentMethod->name;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'paid_with', ArrayHelper::map(\app\models\PaymentMethod::find()->orderBy(['name'=>SORT_ASC,])->asArray()->all(), 'id', 'name'),['class'=>'form-control','prompt' => 'Select...']),
+                'options' => array('width' => 140),
             ],
+            'description',
+            // 'delivery_date',
+            // 'arrived_in',
             // 'is_disputed',
             // 'refund_status',
             // 'notes:ntext',
@@ -56,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     } else if ($data->delivery_date<>"0000-00-00") {
                         return "Received on ".$data->delivery_date;
                     } else if ($data->delivery_date=="0000-00-00" && \app\models\Shipment::isShipped($data->id)==true) {
-                        return "en-route since ".\app\models\Package::getDaysElapsed($data->id);
+                        return "En route since ".\app\models\Package::getDaysElapsed($data->id);
                     } else {
                         return "Shipping...";
                     }
