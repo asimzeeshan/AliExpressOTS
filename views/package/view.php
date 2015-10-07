@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Package */
@@ -68,5 +70,53 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+
+    <?php
+    $dataProvider = new ActiveDataProvider([
+        'query' => \app\models\Shipment::find()
+            ->innerJoin('package', '`shipment`.`order_id` = `package`.`id`')
+            ->where([
+                'shipment.order_id' => $model->id,
+            ])->with('package'),
+        'pagination' => [
+            'pageSize' => -1,
+        ],
+    ]);
+
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'package.ae_order_id',
+            'package.description',
+            'shipment_date',
+            'tracking_id',
+            'package.delivery_date',
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width:70px;'],
+                'header'=>'Actions',
+                'template' => '{view}',
+//                'buttons' => [
+//
+//                    //view button
+//                    'view' => function ($url, $model) {
+//                        return Html::a('<span class="fa fa-search"></span>View', $url, [
+//                            'title' => Yii::t('app', 'View'),
+//                            'class'=>'btn btn-primary btn-xs',
+//                        ]);
+//                    },
+//                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'view') {
+                        $url = '/shipment/view/' . $model->id;
+                        return $url;
+                    }
+                }
+            ],
+        ],
+    ]); ?>
 
 </div>

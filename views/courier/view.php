@@ -59,11 +59,33 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'package.ae_order_id',
+            'package.description',
             'shipment_date',
             'tracking_id',
             'package.delivery_date',
 
-            //['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width:70px;'],
+                'header'=>'Actions',
+                'template' => '{view}',
+//                'buttons' => [
+//
+//                    //view button
+//                    'view' => function ($url, $model) {
+//                        return Html::a('<span class="fa fa-search"></span>View', $url, [
+//                            'title' => Yii::t('app', 'View'),
+//                            'class'=>'btn btn-primary btn-xs',
+//                        ]);
+//                    },
+//                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'view') {
+                        $url = '/package/view/' . $model->id;
+                        return $url;
+                    }
+                }
+            ],
         ],
     ]); ?>
 
