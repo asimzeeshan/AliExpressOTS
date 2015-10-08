@@ -38,7 +38,6 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Dashboard', 'url' => ['/site/index']],
             ['label' => 'Packages', 'url' => ['/package']],
-            ['label' => 'Shipments', 'url' => ['/shipment']],
             ['label' => 'Couriers', 'url' => ['/courier']],
             ['label' => 'Payment Methods', 'url' => ['/payment-method']],
             [

@@ -25,6 +25,16 @@ use yii\web\JqueryAsset;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
+    <?php $allCouriers = ArrayHelper::map(\app\models\Courier::find()->orderBy('id')->all(), 'id', 'name'); ?>
+    <?= $form->field($model, 'courier_id')->dropDownList($allCouriers,['prompt' => ' -- Select Courier --'])->label('Courier') ?>
+
+    <?= $form->field($model, 'tracking_id')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'shipment_date')->widget(\yii\jui\DatePicker::classname(), [
+        'options' => ['class' => 'form-control'],
+        'dateFormat' => 'yyyy-MM-dd',
+    ]) ?>
+
     <?php if ($this->context->action->id == 'update') { ?>
 
     <?= $form->field($model, 'delivery_date')->widget(\yii\jui\DatePicker::classname(), [
@@ -37,7 +47,7 @@ use yii\web\JqueryAsset;
     <?= $form->field($model, 'arrived_in')->hiddenInput()->label(false) ?>
 
     <?php $allPaymentMethods = ArrayHelper::map(\app\models\PaymentMethod::find()->orderBy('id')->all(), 'id', 'name'); ?>
-    <?= $form->field($model, 'paid_with')->dropDownList($allPaymentMethods)->label('Payment Method') ?>
+    <?= $form->field($model, 'paid_with')->dropDownList($allPaymentMethods,['prompt' => ' -- Select Payment Method --'])->label('Payment Method') ?>
 
     <?= $form->field($model, 'is_disputed')->checkBox() ?>
 

@@ -15,6 +15,9 @@ use Yii;
  * @property string $price
  * @property string $order_date
  * @property string $description
+ * @property integer $courier_id
+ * @property string $tracking_id
+ * @property string $shipment_date
  * @property string $delivery_date
  * @property integer $arrived_in
  * @property string $paid_with
@@ -34,14 +37,6 @@ class Package extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'package';
-    }
-
-    /**
-     * Relationship with Shipments
-     */
-    public function getShipment()
-    {
-        return $this->hasMany(Shipment::className(), ['order_id' => 'id']);
     }
 
     /**
@@ -68,22 +63,13 @@ class Package extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
-    public function getDaysElapsed($id) {
-        $shipment_date = Shipment::shippingDate($id);
-        if ($shipment_date == "") {
-            return "0 days (".$shipment_date.")";
-        } else {
-            $now = time(); // or your date as well
-            $your_date = strtotime($shipment_date);
-            $datediff = $now - $your_date;
-            $days_elapsed = floor($datediff/(60*60*24));
+    public function getDaysElapsed($date) {
+        $now = time(); // or your date as well
+        $your_date = strtotime($date);
+        $datediff = $now - $your_date;
+        $days_elapsed = floor($datediff/(60*60*24));
 
-            return $days_elapsed." days (".$shipment_date.")";
-        }
-    }
-
-    public function getShipmentDate($order_id) {
-        return Shipment::isShipped($order_id);
+        return $days_elapsed." days (".$date.")";
     }
 
     /**
@@ -112,14 +98,16 @@ class Package extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ae_order_id', 'price', 'order_date'], 'required'],
-            [['order_date', 'delivery_date'], 'safe'],
-            [['ae_order_id', 'arrived_in', 'is_disputed'], 'integer'],
+            [['ae_order_id', 'price', 'order_date', 'description', 'paid_with'], 'required'],
+            [['ae_order_id', 'courier_id', 'arrived_in', 'is_disputed'], 'integer'],
+            [['order_date', 'shipment_date', 'delivery_date'], 'safe'],
             [['notes'], 'string'],
             [['price'], 'string', 'max' => 6],
             [['description'], 'string', 'max' => 48],
+            [['tracking_id'], 'string', 'max' => 30],
             [['paid_with'], 'string', 'max' => 5],
-            [['refund_status'], 'string', 'max' => 20]
+            [['refund_status'], 'string', 'max' => 20],
+            [['ae_order_id'], 'unique']
         ];
     }
 
@@ -134,6 +122,9 @@ class Package extends \yii\db\ActiveRecord
             'price' => 'Price',
             'order_date' => 'Order Date',
             'description' => 'Description',
+            'courier_id' => 'Courier',
+            'tracking_id' => 'Tracking ID',
+            'shipment_date' => 'Shipment Date',
             'delivery_date' => 'Delivery Date',
             'arrived_in' => 'Arrived In',
             'paid_with' => 'Paid With',

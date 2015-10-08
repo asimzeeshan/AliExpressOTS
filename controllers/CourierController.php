@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\Shipment;
 use Yii;
 use app\models\Courier;
 use app\models\CourierSearch;

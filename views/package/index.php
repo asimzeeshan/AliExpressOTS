@@ -49,6 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => array('width' => 140),
             ],
             'description',
+            // 'courier_id',
+            // 'tracking_id',
+            // 'shipment_date',
             // 'delivery_date',
             // 'arrived_in',
             // 'is_disputed',
@@ -64,10 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'   => function ($data) {
                     if ($data->is_disputed==1) {
                         return "Disputed";
+                    } else if ($data->delivery_date=="0000-00-00" && $data->shipment_date<>"0000-00-00") {
+                        return "En route since ";//.\app\models\Package::getDaysElapsed($data->shipment_date);
                     } else if ($data->delivery_date<>"0000-00-00") {
                         return "Received on ".$data->delivery_date;
-                    } else if ($data->delivery_date=="0000-00-00" && \app\models\Shipment::isShipped($data->id)==true) {
-                        return "En route since ".\app\models\Package::getDaysElapsed($data->id);
                     } else {
                         return "Shipping...";
                     }

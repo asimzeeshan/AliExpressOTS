@@ -25,6 +25,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description') ?>
 
+    <?php // echo $form->field($model, 'courier_id') ?>
+
+    <?php // echo $form->field($model, 'tracking_id') ?>
+
+    <?php // echo $form->field($model, 'shipment_date') ?>
+
     <?php // echo $form->field($model, 'delivery_date') ?>
 
     <?php // echo $form->field($model, 'arrived_in') ?>
