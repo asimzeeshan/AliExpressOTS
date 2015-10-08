@@ -18,7 +18,7 @@ class PackageSearch extends Package
     public function rules()
     {
         return [
-            [['id', 'ae_order_id', 'courier_id', 'arrived_in', 'is_disputed', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'order_id', 'courier_id', 'arrived_in', 'is_disputed', 'created_by', 'updated_by'], 'integer'],
             [['price', 'order_date', 'description', 'tracking_id', 'shipment_date', 'delivery_date', 'paid_with', 'refund_status', 'notes', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -58,7 +58,7 @@ class PackageSearch extends Package
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'ae_order_id' => $this->ae_order_id,
+            'order_id' => $this->order_id,
             'order_date' => $this->order_date,
             'courier_id' => $this->courier_id,
             'shipment_date' => $this->shipment_date,

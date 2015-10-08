@@ -29,6 +29,22 @@ class PaymentMethod extends \yii\db\ActiveRecord
     }
 
     /**
+     * Relationship with User
+     */
+    public function getCreatedByUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * Relationship with User
+     */
+    public function getUpdatedByUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    /**
      * TimestampBehavior & BlameableBehavior to update created_* and updated_* fields
      */
     public function behaviors()

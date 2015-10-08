@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id',
             [
-                'attribute' => 'ae_order_id',
+                'attribute' => 'order_id',
                 'options' => array('width' => 150),
             ],
             [
@@ -67,17 +67,46 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'   => function ($data) {
                     if ($data->is_disputed==1) {
                         return "Disputed";
-                    } else if ($data->delivery_date=="0000-00-00" && $data->shipment_date<>"0000-00-00") {
-                        return "En route since ";//.\app\models\Package::getDaysElapsed($data->shipment_date);
-                    } else if ($data->delivery_date<>"0000-00-00") {
-                        return "Received on ".$data->delivery_date;
-                    } else {
+                    } else if ($data->is_disputed!=1 && $data->shipment_date=="0000-00-00") {
                         return "Shipping...";
+                    } else if ($data->is_disputed!=1 && $data->delivery_date<>"0000-00-00" && $data->shipment_date<>"0000-00-00") {
+                        return "Received on ".$data->delivery_date;
+                    } else if ($data->is_disputed!=1 && $data->delivery_date=="0000-00-00" && $data->shipment_date<>"0000-00-00") {
+                        return "En route since ".\app\models\Package::getDaysElapsed($data->shipment_date);
+                    } else {
+                        return "Unknown!";
                     }
                 },
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width:100px;'],
+                'template' => '{view} {received} {update} {delete}',
+                'buttons' => [
+
+                    //view button
+                    'received' => function ($url, $model) {
+                        if ($model->delivery_date=="0000-00-00" && $model->shipment_date=="0000-00-00") {
+                            $receivedButtonClass = "glyphicon-ban-circle";
+                            $receivedButtonTitle = "Not yet shipped";
+                        } else if ($model->delivery_date=="0000-00-00" && $model->shipment_date<>"0000-00-00") {
+                            $receivedButtonClass = "glyphicon-heart";
+                            $receivedButtonTitle = "Mark item received";
+                        } else {
+                            $receivedButtonClass = "glyphicon-heart-empty";
+                            $receivedButtonTitle = "Mistake? Mark item not received";
+                        }
+
+                        return Html::a('<span class="glyphicon '.$receivedButtonClass.'"></span>', $url, [
+                            'title' => Yii::t('yii', $receivedButtonTitle),
+                            'data-confirm' => Yii::t('yii', 'Are you sure you want to mark this item? WARNING: If the item is already marked, it will unmark it!'),
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
+                        ]);
+                    },
+                ],
+            ],
         ],
     ]); ?>
 

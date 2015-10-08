@@ -11,7 +11,7 @@ use Yii;
  * This is the model class for table "package".
  *
  * @property string $id
- * @property integer $ae_order_id
+ * @property integer $order_id
  * @property string $price
  * @property string $order_date
  * @property string $description
@@ -69,7 +69,7 @@ class Package extends \yii\db\ActiveRecord
         $datediff = $now - $your_date;
         $days_elapsed = floor($datediff/(60*60*24));
 
-        return $days_elapsed." days (".$date.")";
+        return $days_elapsed." days";//.$date.")";
     }
 
     /**
@@ -98,8 +98,8 @@ class Package extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ae_order_id', 'price', 'order_date', 'description', 'paid_with'], 'required'],
-            [['ae_order_id', 'courier_id', 'arrived_in', 'is_disputed'], 'integer'],
+            [['order_id', 'price', 'order_date', 'description', 'paid_with'], 'required'],
+            [['order_id', 'courier_id', 'arrived_in', 'is_disputed'], 'integer'],
             [['order_date', 'shipment_date', 'delivery_date'], 'safe'],
             [['notes'], 'string'],
             [['price'], 'string', 'max' => 6],
@@ -107,7 +107,7 @@ class Package extends \yii\db\ActiveRecord
             [['tracking_id'], 'string', 'max' => 30],
             [['paid_with'], 'string', 'max' => 5],
             [['refund_status'], 'string', 'max' => 20],
-            [['ae_order_id'], 'unique']
+            [['order_id'], 'unique']
         ];
     }
 
@@ -118,7 +118,7 @@ class Package extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ae_order_id' => 'AliExpress Order ID',
+            'order_id' => 'Order ID',
             'price' => 'Price',
             'order_date' => 'Order Date',
             'description' => 'Description',

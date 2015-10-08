@@ -8,6 +8,7 @@ use app\models\PackageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Expression;
 
 /**
  * PackageController implements the CRUD actions for Package model.
@@ -79,6 +80,8 @@ class PackageController extends Controller
      */
     public function actionUpdate($id)
     {
+        //print_r($_POST);
+        //exit;
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -99,6 +102,24 @@ class PackageController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * 'Confirm Received' an existing Package model.
+     * If 'received' is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     */
+    public function actionReceived($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->delivery_date=="0000-00-00")
+            $model->delivery_date = new Expression('NOW()');
+        else
+            $model->delivery_date = "0000-00-00";
+        $model->save();
 
         return $this->redirect(['index']);
     }

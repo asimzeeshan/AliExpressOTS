@@ -8,13 +8,21 @@ use yii\web\JqueryAsset;
 /* @var $this yii\web\View */
 /* @var $model app\models\Package */
 /* @var $form yii\widgets\ActiveForm */
+
+$judgar = "";
+if ($model->shipment_date=="0000-00-00")
+    $judgar .= '$("#package-shipment_date").val("");';
+if ($model->delivery_date=="0000-00-00")
+    $judgar .= '$("#package-delivery_date").val("");';
+
+$this->registerJs($judgar);
 ?>
 
 <div class="package-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ae_order_id')->textInput() ?>
+    <?= $form->field($model, 'order_id')->textInput() ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
