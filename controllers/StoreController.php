@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Package;
-use app\models\PackageSearch;
+use app\models\Store;
+use app\models\StoreSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\db\Expression;
 
 /**
- * PackageController implements the CRUD actions for Package model.
+ * StoreController implements the CRUD actions for Store model.
  */
-class PackageController extends Controller
+class StoreController extends Controller
 {
     public function behaviors()
     {
@@ -28,12 +27,12 @@ class PackageController extends Controller
     }
 
     /**
-     * Lists all Package models.
+     * Lists all Store models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PackageSearch();
+        $searchModel = new StoreSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,8 +42,8 @@ class PackageController extends Controller
     }
 
     /**
-     * Displays a single Package model.
-     * @param string $id
+     * Displays a single Store model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
@@ -55,13 +54,13 @@ class PackageController extends Controller
     }
 
     /**
-     * Creates a new Package model.
+     * Creates a new Store model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Package();
+        $model = new Store();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -73,9 +72,9 @@ class PackageController extends Controller
     }
 
     /**
-     * Updates an existing Package model.
+     * Updates an existing Store model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -92,9 +91,9 @@ class PackageController extends Controller
     }
 
     /**
-     * Deletes an existing Package model.
+     * Deletes an existing Store model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -105,33 +104,15 @@ class PackageController extends Controller
     }
 
     /**
-     * 'Confirm Received' an existing Package model.
-     * If 'received' is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionReceived($id)
-    {
-        $model = $this->findModel($id);
-        if ($model->delivery_date=="0000-00-00")
-            $model->delivery_date = new Expression('NOW()');
-        else
-            $model->delivery_date = "0000-00-00";
-        $model->save();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Package model based on its primary key value.
+     * Finds the Store model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Package the loaded model
+     * @param integer $id
+     * @return Store the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Package::findOne($id)) !== null) {
+        if (($model = Store::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
