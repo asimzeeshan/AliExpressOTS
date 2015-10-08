@@ -27,7 +27,10 @@ use yii\web\JqueryAsset;
 
     <?php if ($this->context->action->id == 'update') { ?>
 
-        <?= $form->field($model, 'delivery_date')->textInput() ?>
+    <?= $form->field($model, 'delivery_date')->widget(\yii\jui\DatePicker::classname(), [
+        'options' => ['class' => 'form-control'],
+        'dateFormat' => 'yyyy-MM-dd',
+    ]) ?>
 
     <?php } ?>
 
