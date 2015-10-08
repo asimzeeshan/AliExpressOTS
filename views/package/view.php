@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 /* @var $this yii\web\View */
 /* @var $model app\models\Package */
 
-$this->title = $model->id;
+$this->title = $model->description;
 $this->params['breadcrumbs'][] = ['label' => 'Packages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,11 +31,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            [
+                'attribute' => 'store_id',
+                'value'     => empty($model->store_id)?"<i>N/A</i>":"<b>".$model->store->name."</b>",
+                'format'    => 'raw'
+            ],
             'order_id',
             'price',
             'order_date',
-            'description',
-            'courier_id',
+            [
+                'attribute' => 'description',
+                'value'     => "<b>".$model->description."</b>",
+                'format'    => 'raw'
+            ],
+            [
+                'attribute' => 'courier_id',
+                'value'     => $model->courier->name,
+                'format'    => 'text',
+            ],
             'tracking_id',
             'shipment_date',
             [
@@ -66,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'created_at',
             [
-                'attribute' => 'created_by',
+                'attribute' => 'updated_by',
                 'value'     => $model->updatedByUser->username,
                 'format'    => 'text'
             ],

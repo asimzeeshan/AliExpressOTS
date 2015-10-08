@@ -22,6 +22,17 @@ $this->registerJs($judgar);
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?php $allStores = ArrayHelper::map(\app\models\Store::find()->orderBy('name')->all(), 'id', 'name'); ?>
+    <?= $form->field($model, 'store_id')->dropDownList($allStores,['prompt' => ' -- Select Store --'])->label('Store') ?>
+
+    <?php
+//    $allStoresData = \app\models\Store::find()->orderBy('store_number')->all();
+//    $data = array();
+//    foreach ($allStoresData as $storeData)
+//        $allStoreIDs[$storeData->id] = $storeData->store_number.' - '.$storeData->name;
+//    echo $form->field($model, 'store_id')->dropDownList($allStoreIDs)->label('Store');
+    ?>
+
     <?= $form->field($model, 'order_id')->textInput() ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>

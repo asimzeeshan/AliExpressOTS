@@ -45,6 +45,7 @@ class StoreSearch extends Store
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['id'=>SORT_DESC]]
         ]);
 
         $this->load($params);

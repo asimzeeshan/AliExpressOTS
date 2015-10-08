@@ -11,6 +11,7 @@ use Yii;
  * This is the model class for table "package".
  *
  * @property string $id
+ * @property integer $store_id
  * @property integer $order_id
  * @property string $price
  * @property string $order_date
@@ -45,6 +46,22 @@ class Package extends \yii\db\ActiveRecord
     public function getPaymentMethod()
     {
         return $this->hasOne(PaymentMethod::className(), ['id' => 'paid_with']);
+    }
+
+    /**
+     * Relationship with Courier
+     */
+    public function getCourier()
+    {
+        return $this->hasOne(Courier::className(), ['id' => 'courier_id']);
+    }
+
+    /**
+     * Relationship with Store
+     */
+    public function getStore()
+    {
+        return $this->hasOne(Store::className(), ['id' => 'store_id']);
     }
 
     /**
@@ -98,8 +115,8 @@ class Package extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'price', 'order_date', 'description', 'paid_with'], 'required'],
-            [['order_id', 'courier_id', 'arrived_in', 'is_disputed'], 'integer'],
+            [['store_id', 'order_id', 'price', 'order_date', 'description', 'paid_with'], 'required'],
+            [['store_id', 'order_id', 'courier_id', 'arrived_in', 'is_disputed'], 'integer'],
             [['order_date', 'shipment_date', 'delivery_date'], 'safe'],
             [['notes'], 'string'],
             [['price'], 'string', 'max' => 6],
@@ -118,6 +135,7 @@ class Package extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'store_id' => 'Store',
             'order_id' => 'Order ID',
             'price' => 'Price',
             'order_date' => 'Order Date',

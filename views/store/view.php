@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('New', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -33,9 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'location',
             'since',
-            'created_by',
+            [
+                'attribute' => 'created_by',
+                'value'     => $model->createdByUser->username,
+                'format'    => 'text'
+            ],
             'created_at',
-            'updated_by',
+            [
+                'attribute' => 'updated_by',
+                'value'     => $model->updatedByUser->username,
+                'format'    => 'text'
+            ],
             'updated_at',
         ],
     ]) ?>

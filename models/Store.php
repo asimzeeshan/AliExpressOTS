@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\Expression;
 use Yii;
 
 /**
@@ -28,15 +31,52 @@ class Store extends \yii\db\ActiveRecord
     }
 
     /**
+     * Relationship with User
+     */
+    public function getCreatedByUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * Relationship with User
+     */
+    public function getUpdatedByUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    /**
+     * TimestampBehavior & BlameableBehavior to update created_* and updated_* fields
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+        ];
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['store_number', 'name', 'location', 'created_by', 'created_at', 'updated_by', 'updated_at'], 'required'],
-            [['store_number', 'created_by', 'updated_by'], 'integer'],
-            [['since', 'created_at', 'updated_at'], 'safe'],
-            [['name', 'location'], 'string', 'max' => 100]
+            [['store_number', 'name', 'location'], 'required'],
+            [['store_number'], 'integer'],
+            [['since'], 'safe'],
+            [['name', 'location'], 'string', 'max' => 100],
+            [['store_number'], 'unique']
         ];
     }
 
@@ -47,14 +87,14 @@ class Store extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'store_number' => 'Store Number',
+            'store_number' => 'Store #',
             'name' => 'Name',
             'location' => 'Location',
             'since' => 'Since',
-            'created_by' => 'Created By',
-            'created_at' => 'Created At',
-            'updated_by' => 'Updated By',
-            'updated_at' => 'Updated At',
+            'created_by' => 'Created by',
+            'created_at' => 'Created at',
+            'updated_by' => 'Updated by',
+            'updated_at' => 'Updated at',
         ];
     }
 }

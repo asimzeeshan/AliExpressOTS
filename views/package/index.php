@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             // 'id',
+            'store_id',
             [
                 'attribute' => 'order_id',
                 'options' => array('width' => 150),
