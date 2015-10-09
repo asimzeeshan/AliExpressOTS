@@ -62,6 +62,11 @@ class StoreController extends Controller
     {
         $model = new Store();
 
+//        // lets accept values in this format 'Jan 14, 2015' and convert auto-magically
+//        if (isset($_POST) && $_POST['Store']['since']!="") {
+//            $_POST['Store']['since'] = date('Y-m-d', strtotime($_POST['Store']['since']));
+//        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
