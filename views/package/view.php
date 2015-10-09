@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'courier_id',
-                'value'     => $model->courier->name,
+                'value'     => $model->courier_id?$model->courier->name:"N/A",
                 'format'    => 'text',
             ],
             'tracking_id',

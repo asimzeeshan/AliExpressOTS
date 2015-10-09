@@ -42,6 +42,8 @@ use yii\jui\AutoComplete;
         ],
     ]) ?>
 
+    <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
@@ -49,3 +51,4 @@ use yii\jui\AutoComplete;
     <?php ActiveForm::end(); ?>
 
 </div>
+

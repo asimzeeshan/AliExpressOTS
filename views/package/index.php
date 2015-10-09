@@ -28,7 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             // 'id',
-            'store_id',
+            [
+                'attribute' => 'store_id',
+                'value'     => function ($data) {
+                    return $data->store->name;
+                },
+                //'options' => array('width' => 200),
+                'filter' => Html::activeDropDownList($searchModel, 'store_id', ArrayHelper::map(\app\models\Store::find()->orderBy(['name'=>SORT_ASC,])->asArray()->all(), 'id', 'name'),['class'=>'form-control','prompt' => 'Store ...']),
+            ],
             [
                 'attribute' => 'order_id',
                 'options' => array('width' => 150),

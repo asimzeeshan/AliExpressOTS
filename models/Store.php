@@ -15,6 +15,7 @@ use Yii;
  * @property string $name
  * @property string $location
  * @property string $since
+ * @property string $notes
  * @property integer $created_by
  * @property string $created_at
  * @property integer $updated_by
@@ -28,6 +29,14 @@ class Store extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'store';
+    }
+
+    /**
+     * Relationship with Package
+     */
+    public function getPackage()
+    {
+        return $this->hasMany(Package::className(), ['store_id' => 'id']);
     }
 
     /**
@@ -75,6 +84,7 @@ class Store extends \yii\db\ActiveRecord
             [['store_number', 'name'], 'required'],
             [['store_number'], 'integer'],
             [['since'], 'safe'],
+            [['notes'], 'string'],
             [['name', 'location'], 'string', 'max' => 100],
             [['store_number'], 'unique']
         ];
@@ -91,6 +101,7 @@ class Store extends \yii\db\ActiveRecord
             'name' => 'Name',
             'location' => 'Location',
             'since' => 'Since',
+            'notes' => 'Notes',
             'created_by' => 'Created by',
             'created_at' => 'Created at',
             'updated_by' => 'Updated by',

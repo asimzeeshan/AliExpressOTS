@@ -19,7 +19,7 @@ class StoreSearch extends Store
     {
         return [
             [['id', 'store_number', 'created_by', 'updated_by'], 'integer'],
-            [['name', 'location', 'since', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'location', 'since', 'notes', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -67,8 +67,10 @@ class StoreSearch extends Store
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'location', $this->location]);
+            ->andFilterWhere(['like', 'location', $this->location])
+            ->andFilterWhere(['like', 'notes', $this->notes]);
 
         return $dataProvider;
     }
 }
+

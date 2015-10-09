@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Store */
@@ -34,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'location',
             'since',
+            'notes:ntext',
             [
                 'attribute' => 'created_by',
                 'value'     => $model->createdByUser->username,
@@ -48,5 +51,46 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+
+    <?php
+    $dataProvider = new ActiveDataProvider([
+        'query' => \app\models\Package::find()
+            ->innerJoin('store', '`store`.`id` = `package`.`store_id`')
+            ->where([
+                'store.id' => $model->id,
+            ])->with('store')->orderBy('id DESC'),
+        'pagination' => [
+            'pageSize' => -1,
+        ],
+    ]);
+
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'order_id',
+            'description',
+            'price',
+            'order_date',
+            'shipment_date',
+            'delivery_date',
+            'is_disputed',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width:70px;'],
+                'header'=>'Actions',
+                'template' => '{view}',
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'view') {
+                        $url = '/package/view/' . $model->id;
+                        return $url;
+                    }
+                }
+            ],
+        ],
+    ]);
+
+    ?>
 
 </div>
