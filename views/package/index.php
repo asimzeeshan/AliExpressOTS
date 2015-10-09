@@ -82,11 +82,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'width:100px;'],
-                'template' => '{view} {received} {update} {delete}',
+                'contentOptions' => ['style' => 'width:120px;'],
+                'template' => '{view} {shipped} {received} {update} {delete}',
                 'buttons' => [
+                    'shipped' => function ($url, $model) {
+                        if ($model->shipment_date=="0000-00-00") {
+                            $shippedButtonClass = "glyphicon-unchecked";
+                            $shippedButtonTitle = "Mark item as shipped?";
+                        } else {
+                            $shippedButtonClass = "glyphicon-check";
+                            $shippedButtonTitle = "Mistake? Mark item not shipped";
+                        }
 
-                    //view button
+                        return Html::a('<span class="glyphicon '.$shippedButtonClass.'"></span>', $url, [
+                            'title' => Yii::t('yii', $shippedButtonTitle),
+                            'data-confirm' => Yii::t('yii', 'Are you sure you want to mark this item?'),
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
+                        ]);
+                    },
                     'received' => function ($url, $model) {
                         if ($model->delivery_date=="0000-00-00" && $model->shipment_date=="0000-00-00") {
                             $receivedButtonClass = "glyphicon-ban-circle";

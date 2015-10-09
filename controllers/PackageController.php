@@ -110,6 +110,24 @@ class PackageController extends Controller
      * @param string $id
      * @return mixed
      */
+    public function actionShipped($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->shipment_date=="0000-00-00")
+            $model->shipment_date = new Expression('NOW()');
+        else
+            $model->shipment_date = "0000-00-00";
+        $model->save();
+
+        return $this->redirect(['update', 'id' => $model->id]);
+    }
+
+    /**
+     * 'Confirm Received' an existing Package model.
+     * If 'received' is successful, the browser will be redirected to the 'index' page.
+     * @param string $id
+     * @return mixed
+     */
     public function actionReceived($id)
     {
         $model = $this->findModel($id);

@@ -72,7 +72,7 @@ class Store extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['store_number', 'name', 'location'], 'required'],
+            [['store_number', 'name'], 'required'],
             [['store_number'], 'integer'],
             [['since'], 'safe'],
             [['name', 'location'], 'string', 'max' => 100],
