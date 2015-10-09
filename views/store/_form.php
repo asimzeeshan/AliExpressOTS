@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\web\JsExpression;
+use yii\jui\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Store */
@@ -16,7 +18,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+    <?php $data = \app\models\Store::find()
+        ->select(['location as value', 'location as  label','id'])->addGroupBy('location')
+        ->asArray()
+        ->all(); ?>
+    <?= $form->field($model, 'location')->widget(\yii\jui\AutoComplete::className(), [
+        'options' => ['class' => 'form-control'],
+        'class' => 'form-control',
+        'clientOptions' => [
+            'source' => $data,
+            'autoFill'=>true,
+            'minLength'=>'2',
+        ],
+    ]) ?>
 
     <?= $form->field($model, 'since')->widget(\yii\jui\DatePicker::classname(), [
         'options' => ['class' => 'form-control'],
