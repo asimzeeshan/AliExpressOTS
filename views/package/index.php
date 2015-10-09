@@ -113,10 +113,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             $receivedButtonClass = "glyphicon-ban-circle";
                             $receivedButtonTitle = "Not yet shipped";
                         } else if ($model->delivery_date=="0000-00-00" && $model->shipment_date<>"0000-00-00") {
-                            $receivedButtonClass = "glyphicon-heart";
+                            $receivedButtonClass = "glyphicon-heart-empty";
                             $receivedButtonTitle = "Mark item received";
                         } else {
-                            $receivedButtonClass = "glyphicon-heart-empty";
+                            $receivedButtonClass = "glyphicon-heart";
                             $receivedButtonTitle = "Mistake? Mark item not received";
                         }
 
