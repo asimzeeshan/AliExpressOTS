@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PackageSearch */
@@ -15,21 +16,22 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php // echo $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'store_id') ?>
+    <?php $allStores = ArrayHelper::map(\app\models\Store::find()->orderBy('name')->all(), 'id', 'name'); ?>
+    <?= $form->field($model, 'store_id')->dropDownList($allStores,['prompt' => ' -- Select Store --'])->label('Store') ?>
 
     <?= $form->field($model, 'order_id') ?>
 
-    <?= $form->field($model, 'price') ?>
+    <?php // echo $form->field($model, 'price') ?>
 
-    <?= $form->field($model, 'order_date') ?>
+    <?php // echo $form->field($model, 'order_date') ?>
 
-    <?= $form->field($model, 'description') ?>
+    <?php // echo $form->field($model, 'description') ?>
 
     <?php // echo $form->field($model, 'courier_id') ?>
 
-    <?php // echo $form->field($model, 'tracking_id') ?>
+    <?= $form->field($model, 'tracking_id') ?>
 
     <?php // echo $form->field($model, 'shipment_date') ?>
 

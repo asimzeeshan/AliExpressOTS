@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
+use \yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PackageSearch */
@@ -10,14 +11,17 @@ use yii\helpers\ArrayHelper;
 
 $this->title = 'Packages';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJs('$(".package-search").hide();', View::POS_READY);
 ?>
 <div class="package-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('New Package', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Show Search!', ['id'=>'search-toggle', 'class' => 'btn btn-warning', 'onclick' => '(function ( $event ) { var btnlabel=$("#search-toggle").text(); if (btnlabel=="Show Search!") { $(".package-search").toggle(); $("#search-toggle").text("Hide Search!"); } else { $(".package-search").toggle(); $("#search-toggle").text("Show Search!"); } })();']) ?>
     </p>
 
     <?= GridView::widget([
