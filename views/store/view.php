@@ -77,6 +77,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'delivery_date',
             'is_disputed',
             [
+                'attribute' => 'status',
+                'value'     => function ($model) {
+                    return "<b style='color:red;'>".$model->status."</b>";
+                },
+                'format'    => 'raw'
+            ],
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => ['style' => 'width:70px;'],
                 'header'=>'Actions',

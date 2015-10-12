@@ -19,7 +19,7 @@ class PackageSearch extends Package
     {
         return [
             [['id', 'store_id', 'order_id', 'courier_id', 'arrived_in', 'is_disputed', 'created_by', 'updated_by'], 'integer'],
-            [['price', 'order_date', 'description', 'tracking_id', 'shipment_date', 'delivery_date', 'paid_with', 'refund_status', 'notes', 'created_at', 'updated_at'], 'safe'],
+            [['price', 'order_date', 'description', 'tracking_id', 'shipment_date', 'delivery_date', 'paid_with', 'refund_status', 'status', 'notes', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -77,9 +77,9 @@ class PackageSearch extends Package
             ->andFilterWhere(['like', 'tracking_id', $this->tracking_id])
             ->andFilterWhere(['like', 'paid_with', $this->paid_with])
             ->andFilterWhere(['like', 'refund_status', $this->refund_status])
+            ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'notes', $this->notes]);
 
         return $dataProvider;
     }
 }
-

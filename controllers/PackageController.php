@@ -113,10 +113,13 @@ class PackageController extends Controller
     public function actionShipped($id)
     {
         $model = $this->findModel($id);
-        if ($model->shipment_date=="0000-00-00")
+        if ($model->shipment_date=="0000-00-00") {
             $model->shipment_date = new Expression('NOW()');
-        else
+            $model->status = "Awaiting delivery";
+        } else {
             $model->shipment_date = "0000-00-00";
+            $model->status = "Awaiting Shipment";
+        }
         $model->save();
 
         return $this->redirect(['update', 'id' => $model->id]);
@@ -131,10 +134,13 @@ class PackageController extends Controller
     public function actionReceived($id)
     {
         $model = $this->findModel($id);
-        if ($model->delivery_date=="0000-00-00")
+        if ($model->delivery_date=="0000-00-00") {
             $model->delivery_date = new Expression('NOW()');
-        else
+            $model->status = "Delivered";
+        } else {
             $model->delivery_date = "0000-00-00";
+            $model->status = "Awaiting delivery";
+        }
         $model->save();
 
         return $this->redirect(['index']);

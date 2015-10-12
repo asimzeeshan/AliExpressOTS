@@ -37,7 +37,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Dashboard', 'url' => ['/site/index']],
-            ['label' => 'Packages', 'url' => ['/package']],
+            ['label' => 'Packages', 'url' => ['/package?PackageSearch%5Bstatus%5D=Awaiting+delivery']],
             ['label' => 'Stores', 'url' => ['/store']],
             ['label' => 'Couriers', 'url' => ['/courier']],
             ['label' => 'Payment Methods', 'url' => ['/payment-method']],

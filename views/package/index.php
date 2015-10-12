@@ -64,13 +64,22 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'arrived_in',
             // 'is_disputed',
             // 'refund_status',
+            [
+                'attribute' => 'status',
+                'value'     => function ($data) {
+                    return "<b style='color:red;'>".$data->status."</b>";
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'status', ArrayHelper::map(\app\models\Package::find()->orderBy(['status'=>SORT_ASC,])->addGroupBy(['status'])->asArray()->all(), 'status', 'status'),['class'=>'form-control','prompt' => 'Select...']),
+                'options' => array('width' => 160),
+                'format'    => 'raw'
+            ],
             // 'notes:ntext',
             // 'created_by',
             // 'created_at',
             // 'updated_by',
             // 'updated_at',
             [
-                'label'   => 'status',
+                'label'   => 'Details',
                 'format' => 'raw',
                 'value'   => function ($data) {
                     if ($data->is_disputed==1) {

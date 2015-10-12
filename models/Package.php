@@ -24,6 +24,7 @@ use Yii;
  * @property string $paid_with
  * @property integer $is_disputed
  * @property string $refund_status
+ * @property string $status
  * @property string $notes
  * @property integer $created_by
  * @property string $created_at
@@ -120,7 +121,7 @@ class Package extends \yii\db\ActiveRecord
             [['order_date', 'shipment_date', 'delivery_date'], 'safe'],
             [['notes'], 'string'],
             [['price'], 'string', 'max' => 6],
-            [['description'], 'string', 'max' => 48],
+            [['description', 'status'], 'string', 'max' => 75],
             [['tracking_id'], 'string', 'max' => 30],
             [['paid_with'], 'string', 'max' => 5],
             [['refund_status'], 'string', 'max' => 20],
@@ -148,6 +149,7 @@ class Package extends \yii\db\ActiveRecord
             'paid_with' => 'Paid With',
             'is_disputed' => 'Is Disputed',
             'refund_status' => 'Refund Status',
+            'status' => 'Status',
             'notes' => 'Notes',
             'created_by' => 'Created by',
             'created_at' => 'Created at',

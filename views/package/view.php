@@ -71,6 +71,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'     => $model->is_disputed==1?$model->refund_status:"N/A",
                 'format'    => 'text'
             ],
+            [
+                'attribute' => 'status',
+                'value'     => "<b style='color:red;'>".$model->status."</b>",
+                'format'    => 'raw'
+            ],
             'notes:ntext',
             [
                 'attribute' => 'created_by',

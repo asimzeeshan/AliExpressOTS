@@ -70,7 +70,9 @@ $this->registerJs($judgar);
 
     <?= $form->field($model, 'is_disputed')->checkBox() ?>
 
-    <?= $form->field($model, 'refund_status')->dropDownList(['Not Applicable' => 'Not Applicable', 'In Progress' => 'In Progress', 'Fully Refunded' => 'Fully Refunded', 'Partially Refunded' => 'Partially Refunded', 'Escalated' => 'Escalated', 'Lost' => 'Lost']); ?>
+    <?= $form->field($model, 'refund_status')->dropDownList(['Not Applicable' => 'Not Applicable', 'In Progress' => 'In Progress', 'Fully Refunded' => 'Fully Refunded', 'Partially Refunded' => 'Partially Refunded', 'Escalated' => 'Escalated', 'Lost' => 'Lost']) ?>
+
+    <?= $form->field($model, 'status')->dropDownList(['Awaiting Payment' => 'Awaiting Payment', 'Awaiting Payment Confirmation' => 'Awaiting Payment Confirmation', 'Awaiting Shipment' => 'Awaiting Shipment', 'Awaiting delivery' => 'Awaiting delivery', 'Awaiting Cancellation' => 'Awaiting Cancellation', 'Cancelled' => 'Cancelled', 'Delivered' => 'Delivered', 'Frozen' => 'Frozen', 'Disputed' => 'Disputed', 'Finished' => 'Finished']) ?>
 
     <?= $form->field($model, 'notes')->textarea(['rows' => 10]) ?>
 
