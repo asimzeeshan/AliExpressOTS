@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63232dbc4961a690dcfc7ee6c482695f",
-    "content-hash": "cbd0a2eed22312da025915a05f220b00",
+    "hash": "6cb33e349f5ea2bcad54b9fa3d086601",
+    "content-hash": "ae10114e19aed27cfe0c072a64d08281",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -391,6 +391,50 @@
             "time": "2015-08-26 20:05:14"
         },
         {
+            "name": "scotthuangzl/yii2-google-chart",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ScottHuangZL/yii2-google-chart.git",
+                "reference": "6bd68466030af8a931b34d2ceacf0a498da5b9a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ScottHuangZL/yii2-google-chart/zipball/6bd68466030af8a931b34d2ceacf0a498da5b9a0",
+                "reference": "6bd68466030af8a931b34d2ceacf0a498da5b9a0",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "scotthuangzl\\googlechart\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Scott Huang",
+                    "email": "zhiliang.huang@gmail.com"
+                }
+            ],
+            "description": "A wraper for google chart",
+            "keywords": [
+                "extension",
+                "google chart",
+                "hzl",
+                "scott huang",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-06-11 12:13:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.1",
             "source": {
@@ -505,7 +549,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webvimark/date-range-picker/zipball/7806a57b7da694d8cbe643e7354f2fb53afc7c37",
+                "url": "https://api.github.com/repos/webvimark/date-range-picker/zipball/4b93d19534ad956c2ae06be0020601ccf8af99fb",
                 "reference": "7806a57b7da694d8cbe643e7354f2fb53afc7c37",
                 "shasum": ""
             },
@@ -1244,6 +1288,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "scotthuangzl/yii2-google-chart": 20,
         "yiisoft/yii2-gii": 20
     },
     "prefer-stable": true,

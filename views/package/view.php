@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+
 use yii\widgets\DetailView;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
@@ -36,7 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'     => empty($model->store_id)?"<i>N/A</i>":"<b>".$model->store->name."</b>",
                 'format'    => 'raw'
             ],
-            'order_id',
+            [
+                'attribute' => 'order_id',
+                'value'     => $model->order_id." [".Html::a('AliExpress Order Page','http://trade.aliexpress.com/order_detail.htm?orderId='.$model->order_id, array('target'=>'_blank'))."]",
+                'format'    => 'raw'
+            ],
             'price',
             'order_date',
             [
@@ -49,8 +54,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'     => $model->courier_id?$model->courier->name:"N/A",
                 'format'    => 'text',
             ],
-            'tracking_id',
-            'shipment_date',
+            [
+                'attribute' => 'tracking_id',
+                'value'     => $model->tracking_id!=''?$model->tracking_id." [".Html::a('17track','http://www.17track.net/en/result/post-details.shtml?nums='.$model->tracking_id, array('target'=>'_blank'))." / ".Html::a('ep.gov.pk','http://ep.gov.pk/track/eptrackdirect.aspx?id='.$model->tracking_id, array('target'=>'_blank'))."]":"",
+                'format'    => 'raw'
+            ],
+            [
+                'attribute' => 'shipment_date',
+                'value'     => $model->shipment_date=="0000-00-00"?"":$model->shipment_date,
+                'format'    => 'raw'
+            ],
             [
                 'attribute' => 'delivery_date',
                 'value'     => $model->is_disputed==1?"N/A":($model->delivery_date=="0000-00-00"?"Waiting...":$model->delivery_date),
