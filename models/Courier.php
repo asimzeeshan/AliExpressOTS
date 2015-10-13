@@ -13,6 +13,9 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property string $url
+ * @property string $max_delivery_days
+ * @property string $min_delivery_days
+ * @property string $avg_delivery_days
  * @property string $created_at
  * @property string $modified_at
  */
@@ -69,6 +72,7 @@ class Courier extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['max_delivery_days', 'min_delivery_days', 'avg_delivery_days'], 'number'],
             [['name'], 'string', 'max' => 75],
             [['url'], 'string', 'max' => 255]
         ];
@@ -83,6 +87,9 @@ class Courier extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'url' => 'URL',
+            'max_delivery_days' => 'MAX Delivery Days',
+            'min_delivery_days' => 'MIN Delivery Days',
+            'avg_delivery_days' => 'AVG Delivery Days',
             'created_by' => 'Created by',
             'created_at' => 'Created at',
             'updated_by' => 'Updated by',

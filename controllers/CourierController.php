@@ -8,7 +8,6 @@ use app\models\CourierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\db\Query;
 
 /**
  * CourierController implements the CRUD actions for Courier model.

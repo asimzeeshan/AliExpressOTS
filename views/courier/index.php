@@ -30,12 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => array('width' => 50),
             ],
             'name',
-            'url:url',
-            //'created_by',
-            //'created_at',
-            [
-                'attribute' => 'updated_by',
-            ],
+            // 'url:url',
+            'max_delivery_days',
+            'min_delivery_days',
+            'avg_delivery_days',
+            // 'created_by',
+            // 'created_at',
+            // 'updated_by'
             'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],

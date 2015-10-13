@@ -2,16 +2,24 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'AliExpress Management System';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h2>AliExpress Management System!</h2>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Please choose from the menus above</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p>
+            <a class="btn btn-lg btn-success" href="/package?PackageSearch%5Bstatus%5D=Awaiting+delivery">(undelivered) Packages</a> &nbsp;
+            <a class="btn btn-lg btn-success" href="/store">Stores</a> &nbsp;
+            <a class="btn btn-lg btn-success" href="/courier">Couriers</a> &nbsp;
+
+        </p>
+
+        <p class="lead">Please find below some stats</p>
+
     </div>
 
     <div class="body-content">

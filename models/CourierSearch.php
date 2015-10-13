@@ -20,6 +20,7 @@ class CourierSearch extends Courier
         return [
             [['id', 'created_by', 'updated_by'], 'integer'],
             [['name', 'url', 'created_at', 'updated_at'], 'safe'],
+            [['max_delivery_days', 'min_delivery_days', 'avg_delivery_days'], 'number'],
         ];
     }
 
@@ -57,6 +58,9 @@ class CourierSearch extends Courier
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'max_delivery_days' => $this->max_delivery_days,
+            'min_delivery_days' => $this->min_delivery_days,
+            'avg_delivery_days' => $this->avg_delivery_days,
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,
             'updated_by' => $this->updated_by,

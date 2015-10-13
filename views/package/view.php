@@ -57,6 +57,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'    => 'text'
             ],
             [
+                'attribute' => 'arrived_in',
+                'value'     => $model->arrived_in?"<b style='color: #0000ff;'>".$model->arrived_in." days</b>":"Waiting for delivery ...",
+                'format'    => 'raw'
+            ],
+            [
                 'attribute' => 'paid_with',
                 'value'     => $model->paymentMethod->name,
                 'format'    => 'text'

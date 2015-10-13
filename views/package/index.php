@@ -65,7 +65,7 @@ $this->registerJs('$(".package-search").hide();', View::POS_READY);
             // 'tracking_id',
             // 'shipment_date',
             // 'delivery_date',
-            // 'arrived_in',
+            'arrived_in',
             // 'is_disputed',
             // 'refund_status',
             [
