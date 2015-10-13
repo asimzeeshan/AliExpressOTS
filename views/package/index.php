@@ -42,7 +42,7 @@ $this->registerJs('$(".package-search").hide();', View::POS_READY);
             ],
             [
                 'attribute' => 'order_id',
-                'options' => array('width' => 150),
+                'options' => array('width' => 130),
             ],
             [
                 'attribute' => 'price',
@@ -52,26 +52,42 @@ $this->registerJs('$(".package-search").hide();', View::POS_READY);
                 'attribute' => 'order_date',
                 'options' => array('width' => 100),
             ],
-            [
-                'attribute' => 'paid_with',
-                'value'     => function ($data) {
-                    return $data->paymentMethod->name;
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'paid_with', ArrayHelper::map(\app\models\PaymentMethod::find()->orderBy(['name'=>SORT_ASC,])->asArray()->all(), 'id', 'name'),['class'=>'form-control','prompt' => 'Select...']),
-                'options' => array('width' => 140),
-            ],
+//            [
+//                'attribute' => 'paid_with',
+//                'value'     => function ($data) {
+//                    return $data->paymentMethod->name;
+//                },
+//                'filter' => Html::activeDropDownList($searchModel, 'paid_with', ArrayHelper::map(\app\models\PaymentMethod::find()->orderBy(['name'=>SORT_ASC,])->asArray()->all(), 'id', 'name'),['class'=>'form-control','prompt' => 'Select...']),
+//                'options' => array('width' => 140),
+//            ],
             'description',
             // 'courier_id',
             // 'tracking_id',
             // 'shipment_date',
             // 'delivery_date',
-            'arrived_in',
+            [
+                'attribute' => 'arrived_in',
+                'options' => array('width' => 80),
+            ],
             // 'is_disputed',
             // 'refund_status',
             [
                 'attribute' => 'status',
                 'value'     => function ($data) {
-                    return "<b style='color:red;'>".$data->status."</b>";
+                    $details = "";
+                    if ($data->is_disputed==1) {
+                        $details = "";
+                    } else if ($data->is_disputed!=1 && $data->shipment_date=="0000-00-00") {
+                        $details = "";
+                    } else if ($data->is_disputed!=1 && $data->delivery_date<>"0000-00-00" && $data->shipment_date<>"0000-00-00") {
+                        $details = " - received on ".$data->delivery_date;
+                    } else if ($data->is_disputed!=1 && $data->delivery_date=="0000-00-00" && $data->shipment_date<>"0000-00-00") {
+                        $details = " - en route since ".\app\models\Package::getDaysElapsed($data->shipment_date);
+                    } else {
+                        $details = "";
+                    }
+
+                    return "<b style='color:red;'>".$data->status."</b>".$details;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'status', ArrayHelper::map(\app\models\Package::find()->orderBy(['status'=>SORT_ASC,])->addGroupBy(['status'])->asArray()->all(), 'status', 'status'),['class'=>'form-control','prompt' => 'Select...']),
                 'options' => array('width' => 160),
@@ -83,26 +99,8 @@ $this->registerJs('$(".package-search").hide();', View::POS_READY);
             // 'updated_by',
             // 'updated_at',
             [
-                'label'   => 'Details',
-                'format' => 'raw',
-                'value'   => function ($data) {
-                    if ($data->is_disputed==1) {
-                        return "Disputed";
-                    } else if ($data->is_disputed!=1 && $data->shipment_date=="0000-00-00") {
-                        return "Shipping...";
-                    } else if ($data->is_disputed!=1 && $data->delivery_date<>"0000-00-00" && $data->shipment_date<>"0000-00-00") {
-                        return "Received on ".$data->delivery_date;
-                    } else if ($data->is_disputed!=1 && $data->delivery_date=="0000-00-00" && $data->shipment_date<>"0000-00-00") {
-                        return "En route since ".\app\models\Package::getDaysElapsed($data->shipment_date);
-                    } else {
-                        return "Unknown!";
-                    }
-                },
-            ],
-
-            [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'width:120px;'],
+                'contentOptions' => ['style' => 'width:105px;'],
                 'template' => '{view} {shipped} {received} {update} {delete}',
                 'buttons' => [
                     'shipped' => function ($url, $model) {
