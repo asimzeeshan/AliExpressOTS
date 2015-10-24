@@ -44,6 +44,8 @@ $this->registerJs($judgar);
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
+    <?php if (!$model->isNewRecord) { ?>
+
     <?php $allCouriers = ArrayHelper::map(\app\models\Courier::find()->orderBy('id')->all(), 'id', 'name'); ?>
     <?= $form->field($model, 'courier_id')->dropDownList($allCouriers,['prompt' => ' -- Select Courier --'])->label('Courier') ?>
 
@@ -53,8 +55,6 @@ $this->registerJs($judgar);
         'options' => ['class' => 'form-control'],
         'dateFormat' => 'yyyy-MM-dd',
     ]) ?>
-
-    <?php if ($this->context->action->id == 'update') { ?>
 
     <?= $form->field($model, 'delivery_date')->widget(\yii\jui\DatePicker::classname(), [
         'options' => ['class' => 'form-control'],
@@ -68,9 +68,13 @@ $this->registerJs($judgar);
     <?php $allPaymentMethods = ArrayHelper::map(\app\models\PaymentMethod::find()->orderBy('id')->all(), 'id', 'name'); ?>
     <?= $form->field($model, 'paid_with')->dropDownList($allPaymentMethods,['prompt' => ' -- Select Payment Method --'])->label('Payment Method') ?>
 
+    <?php if (!$model->isNewRecord) { ?>
+
     <?= $form->field($model, 'is_disputed')->checkBox() ?>
 
     <?= $form->field($model, 'refund_status')->dropDownList(['Not Applicable' => 'Not Applicable', 'In Progress' => 'In Progress', 'Fully Refunded' => 'Fully Refunded', 'Partially Refunded' => 'Partially Refunded', 'Escalated' => 'Escalated', 'Lost' => 'Lost']) ?>
+
+    <?php } ?>
 
     <?= $form->field($model, 'status')->dropDownList(['Awaiting Payment' => 'Awaiting Payment', 'Awaiting Payment Confirmation' => 'Awaiting Payment Confirmation', 'Awaiting Shipment' => 'Awaiting Shipment', 'Awaiting delivery' => 'Awaiting delivery', 'Awaiting Cancellation' => 'Awaiting Cancellation', 'Cancelled' => 'Cancelled', 'Delivered' => 'Delivered', 'Frozen' => 'Frozen', 'Disputed' => 'Disputed', 'Finished' => 'Finished']) ?>
 
