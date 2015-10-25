@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Import Store', ['import'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?= DetailView::widget([

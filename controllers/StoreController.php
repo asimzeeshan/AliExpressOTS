@@ -62,11 +62,6 @@ class StoreController extends Controller
     {
         $model = new Store();
 
-//        // lets accept values in this format 'Jan 14, 2015' and convert auto-magically
-//        if (isset($_POST) && $_POST['Store']['since']!="") {
-//            $_POST['Store']['since'] = date('Y-m-d', strtotime($_POST['Store']['since']));
-//        }
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -74,6 +69,63 @@ class StoreController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * Import/Scrap a new Store model.
+     * If creation is successful, the browser will be redirected to the 'update' page.
+     * @return mixed
+     */
+    public function actionImport()
+    {
+        $model = new Store();
+
+        if (Yii::$app->request->isPost) {
+            //print_r(Yii::$app->request->post());
+            $store_number = intval($_POST['Store']['store_number']);
+            $scraped = $this->_scrapAliExpressStore($store_number);
+
+            // start updating the fields with latest data
+            $model->name = $scraped[1];
+            $model->location = $scraped[2];
+            $model->since = date('Y-m-d', strtotime($scraped[3]));
+            $model->notes = "Import request Initiated from IP '".Yii::$app->request->userIP."'\n";
+            $model->save();
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['update', 'id' => $model->id]);
+        } else {
+            return $this->render('import', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Private function to Import/Scrap store data
+     * @return array
+     */
+    function _scrapAliExpressStore($store_number) {
+        $storeURL = "http://www.aliexpress.com/store/".$store_number;
+        $data = file_get_contents($storeURL);
+        $regex = array(
+            //"'<div class=\"store-summary\">(.*?)</div>'si",
+            "'<span class=\"store-number\">(.*?)</span>'si",
+            "'<a href=\"$storeURL\" title=\"\">(.*?)</a>'si",
+            "'<span class=\"store-location\">(.*?)</span>'si",
+            "'<span class=\"store-time\">(.*?)<em>(.*?)</em></span>'si",
+        );
+
+        $data_array  =array();
+        foreach ($regex as $re) {
+            preg_match($re, $data, $match);
+
+            $result = trim(end($match));
+            $data_array[] = preg_replace('/\s+/', ' ', $result);
+        }
+
+        return $data_array;
     }
 
     /**
