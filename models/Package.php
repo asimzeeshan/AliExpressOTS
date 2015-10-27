@@ -147,7 +147,7 @@ class Package extends \yii\db\ActiveRecord
             'delivery_date' => 'Delivery Date',
             'arrived_in' => 'Arrived In',
             'paid_with' => 'Paid With',
-            'is_disputed' => 'Is Disputed',
+            'is_disputed' => 'Disputed?',
             'refund_status' => 'Refund Status',
             'status' => 'Status',
             'notes' => 'Notes',
