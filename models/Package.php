@@ -81,7 +81,7 @@ class Package extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
-    public function getDaysElapsed($date) {
+    public static function getDaysElapsed($date) {
         $now = time(); // or your date as well
         $your_date = strtotime($date);
         $datediff = $now - $your_date;
