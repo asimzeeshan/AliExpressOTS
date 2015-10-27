@@ -52,14 +52,6 @@ $this->registerJs('$(".package-search").hide();', View::POS_READY);
                 'attribute' => 'order_date',
                 'options' => array('width' => 100),
             ],
-//            [
-//                'attribute' => 'paid_with',
-//                'value'     => function ($data) {
-//                    return $data->paymentMethod->name;
-//                },
-//                'filter' => Html::activeDropDownList($searchModel, 'paid_with', ArrayHelper::map(\app\models\PaymentMethod::find()->orderBy(['name'=>SORT_ASC,])->asArray()->all(), 'id', 'name'),['class'=>'form-control','prompt' => 'Select...']),
-//                'options' => array('width' => 140),
-//            ],
             'description',
             // 'courier_id',
             // 'tracking_id',
@@ -69,7 +61,18 @@ $this->registerJs('$(".package-search").hide();', View::POS_READY);
                 'attribute' => 'arrived_in',
                 'options' => array('width' => 80),
             ],
-            // 'is_disputed',
+            [
+                'attribute' => 'is_disputed',
+                'value'     => function ($data) {
+                    if ($data->is_disputed==1) {
+                        return "<b style='color:red;'>Yes</b>";
+                    } else {
+                        return "No";
+                    }
+                },
+                'options' => array('width' => 60),
+                'format'    => 'raw'
+            ],
             // 'refund_status',
             [
                 'attribute' => 'status',
