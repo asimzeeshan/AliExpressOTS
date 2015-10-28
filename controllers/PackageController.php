@@ -86,7 +86,6 @@ class PackageController extends Controller
         if (Yii::$app->request->isPost) {
             $product_url = $_POST['Package']['product_url'];
             $scraped = $this->_scrapAliExpressProduct($product_url);
-            //print_r($scraped);
 
             if (!empty($scraped['store_id'])) {
                 $check_flag = Store::find()->where( [ 'store_number' => $scraped['store_id'] ] )->exists();
