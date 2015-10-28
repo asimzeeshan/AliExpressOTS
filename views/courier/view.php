@@ -62,9 +62,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'order_id',
             'description',
-            'price',
+            //'price',
             'order_date',
             'shipment_date',
+            'tracking_id',
             'delivery_date',
             'arrived_in',
             [
@@ -98,5 +99,23 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
 
     ?>
+
+    <h3>Items in transit</h3>
+    <div style="background-color: #f1f1f1">
+        <?php
+        $trackingIDs = \app\models\Package::find()
+            ->innerJoin('courier', '`courier`.`id` = `package`.`courier_id`')
+            ->where([
+                'courier.id' => $model->id,
+                'package.status' => 'Awaiting delivery'
+            ])->orderBy('id DESC')->all();
+
+        if ($trackingIDs!=false) {
+            foreach ($trackingIDs as $trackingID) {
+                echo $trackingID->tracking_id."<br />";
+            }
+        }
+        ?>
+    </div>
 
 </div>
