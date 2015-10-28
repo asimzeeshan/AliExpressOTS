@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'tracking_id',
-                'value'     => $model->tracking_id!=''?$model->tracking_id." [".Html::a('17track','http://www.17track.net/en/result/post-details.shtml?nums='.$model->tracking_id, array('target'=>'_blank'))." / ".Html::a('ep.gov.pk','http://ep.gov.pk/track/eptrackdirect.aspx?id='.$model->tracking_id, array('target'=>'_blank'))."]":"",
+                'value'     => $model->tracking_id!=''?$model->tracking_id." [".Html::a('17track','http://new.17track.net/en/track?nums='.$model->tracking_id, array('target'=>'_blank'))." / ".Html::a('ep.gov.pk','http://ep.gov.pk/track/eptrackdirect.aspx?id='.$model->tracking_id, array('target'=>'_blank'))."]":"",
                 'format'    => 'raw'
             ],
             [
