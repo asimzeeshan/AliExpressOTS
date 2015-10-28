@@ -596,12 +596,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webvimark/date-range-picker.git",
-                "reference": "7806a57b7da694d8cbe643e7354f2fb53afc7c37"
+                "reference": "4b93d19534ad956c2ae06be0020601ccf8af99fb"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/webvimark/date-range-picker/zipball/4b93d19534ad956c2ae06be0020601ccf8af99fb",
-                "reference": "7806a57b7da694d8cbe643e7354f2fb53afc7c37",
+                "reference": "4b93d19534ad956c2ae06be0020601ccf8af99fb",
                 "shasum": ""
             },
             "type": "library",
@@ -612,7 +612,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "dangrossman daterangepicker yii 2 gridview",
-            "time": "2015-09-01 14:14:43"
+            "time": "2015-10-06 12:14:43"
         },
         {
             "name": "webvimark/grid-bulk-actions",
@@ -620,12 +620,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webvimark/grid-bulk-actions.git",
-                "reference": "cbad680d89dc4192dac686fd7f7d6298d5debae2"
+                "reference": "b1a28927d9d343922375cdb2b9d073b511fbdd49"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/webvimark/grid-bulk-actions/zipball/b1a28927d9d343922375cdb2b9d073b511fbdd49",
-                "reference": "cbad680d89dc4192dac686fd7f7d6298d5debae2",
+                "reference": "b1a28927d9d343922375cdb2b9d073b511fbdd49",
                 "shasum": ""
             },
             "type": "library",
@@ -636,7 +636,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Bulk actions extension for yii 2 gridview",
-            "time": "2015-08-27 07:12:51"
+            "time": "2015-10-16 07:10:38"
         },
         {
             "name": "webvimark/grid-page-size",
@@ -644,12 +644,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webvimark/grid-page-size.git",
-                "reference": "5eed8adc0c40ba3c96fb2b855f0b38ddf46478b6"
+                "reference": "e0e57a7ecd3858625a97d565b0f9582d83da7e9a"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/webvimark/grid-page-size/zipball/e0e57a7ecd3858625a97d565b0f9582d83da7e9a",
-                "reference": "5eed8adc0c40ba3c96fb2b855f0b38ddf46478b6",
+                "reference": "e0e57a7ecd3858625a97d565b0f9582d83da7e9a",
                 "shasum": ""
             },
             "type": "library",
@@ -660,7 +660,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Grid page size extension for yii 2 gridview",
-            "time": "2015-09-15 22:09:07"
+            "time": "2015-10-26 16:13:58"
         },
         {
             "name": "webvimark/helpers",
@@ -716,12 +716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/webvimark/user-management.git",
-                "reference": "bced9d76f1b787d5416b71d8a18dfd24c0e4620a"
+                "reference": "e8e2676e1dfe4ed4fecd8bd3a329e10267bc16ea"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/webvimark/user-management/zipball/e8e2676e1dfe4ed4fecd8bd3a329e10267bc16ea",
-                "reference": "bced9d76f1b787d5416b71d8a18dfd24c0e4620a",
+                "reference": "e8e2676e1dfe4ed4fecd8bd3a329e10267bc16ea",
                 "shasum": ""
             },
             "require": {
@@ -741,7 +741,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "User with improved RBAC",
-            "time": "2015-08-26 19:48:26"
+            "time": "2015-10-20 09:05:58"
         },
         {
             "name": "yiisoft/yii2",
