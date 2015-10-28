@@ -22,6 +22,7 @@ $this->registerJs('$(".package-search").hide();', View::POS_READY);
     <p>
         <?= Html::a('New Package', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::button('Show Search!', ['id'=>'search-toggle', 'class' => 'btn btn-warning', 'onclick' => '(function ( $event ) { var btnlabel=$("#search-toggle").text(); if (btnlabel=="Show Search!") { $(".package-search").toggle(); $("#search-toggle").text("Hide Search!"); } else { $(".package-search").toggle(); $("#search-toggle").text("Show Search!"); } })();']) ?>
+        <?= Html::a('Import Package', ['import'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= GridView::widget([

@@ -13,6 +13,8 @@ use Yii;
  * @property string $id
  * @property integer $store_id
  * @property integer $order_id
+ * @property string $product_id
+ * @property string $product_url
  * @property string $price
  * @property string $order_date
  * @property string $description
@@ -117,9 +119,10 @@ class Package extends \yii\db\ActiveRecord
     {
         return [
             [['store_id', 'order_id', 'price', 'order_date', 'description', 'paid_with'], 'required'],
-            [['store_id', 'order_id', 'courier_id', 'arrived_in', 'is_disputed'], 'integer'],
+            [['store_id', 'order_id', 'product_id', 'courier_id', 'arrived_in', 'is_disputed'], 'integer'],
             [['order_date', 'shipment_date', 'delivery_date'], 'safe'],
             [['notes'], 'string'],
+            [['product_url'], 'string', 'max' => 255],
             [['price'], 'string', 'max' => 6],
             [['description', 'status'], 'string', 'max' => 75],
             [['tracking_id'], 'string', 'max' => 30],
@@ -138,6 +141,8 @@ class Package extends \yii\db\ActiveRecord
             'id' => 'ID',
             'store_id' => 'Store',
             'order_id' => 'Order ID',
+            'product_id' => 'Product ID',
+            'product_url' => 'Product URL',
             'price' => 'Price',
             'order_date' => 'Order Date',
             'description' => 'Description',

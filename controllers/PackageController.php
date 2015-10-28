@@ -5,10 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Package;
 use app\models\PackageSearch;
+use app\models\Store;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
  * PackageController implements the CRUD actions for Package model.
@@ -70,6 +72,123 @@ class PackageController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * Import/Scrap a new Package model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionImport()
+    {
+        $model = new Package();
+
+        if (Yii::$app->request->isPost) {
+            $product_url = $_POST['Package']['product_url'];
+            $scraped = $this->_scrapAliExpressProduct($product_url);
+            //print_r($scraped);
+
+            if (!empty($scraped['store_id'])) {
+                $check_flag = Store::find()->where( [ 'store_number' => $scraped['store_id'] ] )->exists();
+
+                if ($check_flag==false) {
+                    $store = new Store();
+                    $store->store_number    = $scraped['store_id'];
+                    $store->name            = urldecode($scraped['store_name']);
+                    $store->location        = $scraped['store_location'];
+                    $store->since           = date('Y-m-d', strtotime($scraped['store_since']));
+                    $store->notes = "Import request Initiated from IP '".Yii::$app->request->userIP."'\n";
+                    $store->save();
+
+                    $data = ArrayHelper::toArray($store->id);
+                    $store_internal_id = $data[0];
+                } else {
+                    // store found so do nothing
+                    $primary = Store::find()->where( [ 'store_number' => $scraped['store_id'] ] )->one();
+                    $data = ArrayHelper::toArray($primary);
+
+                    if ($primary!=false) {
+                        $store_internal_id = $data['id'];
+                    } else {
+                        $store_internal_id = 0;
+                    }
+                }
+            }
+
+            // start updating the fields with latest data
+            $model->store_id    = $store_internal_id;
+            $model->order_id    = $_POST['Package']['order_id'];
+            $model->order_date  = date('Y-m-d');                    // lets go with today's date
+            $model->paid_with   = "4";                              // lets go with SCB-DebitCard
+            $model->product_url = $product_url;
+            $model->price       = substr($scraped['price'], 0, 5);
+            $model->description = substr($scraped['name'], 0, 75);
+            $model->status      = "Awaiting Payment Confirmation";
+            $model->notes = "Import request Initiated from IP '".Yii::$app->request->userIP."'\n".
+                            "Data scrapped from ".$product_url;
+            $model->save();
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['update', 'id' => $model->id]);
+        } else {
+            return $this->render('import', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Private function to Import/Scrap Package/Product data
+     * @return array
+     */
+    function _scrapAliExpressProduct($product_url) {
+        $html = file_get_contents(urldecode($product_url));
+        $dom = new \DOMDocument();
+        //$dom->validateOnParse = false;
+        @$dom->loadHTML($html);
+        $product_data = array();
+        $product_data['url'] = $product_url;
+
+        $ProductName = $dom->getElementsByTagName('h1');
+        $product_data['name'] = $ProductName->item(0)->nodeValue;
+
+        $ProductStoreID = $dom->getElementById('hid_storeId');
+        $product_data['store_id'] = $ProductStoreID->getAttribute( 'value' );
+
+        $ProductPrice = $dom->getElementById('sku-price');
+        $product_data['price'] = $ProductPrice->nodeValue;
+
+        if (isset($product_data['store_id']) && $product_data['store_id']!="") {
+            $storeURL = "http://www.aliexpress.com/store/".$product_data['store_id'];
+            $data = file_get_contents($storeURL);
+            $product_data['store_url'] = $storeURL;
+
+            $regex = array(
+                "'<span class=\"store-number\">(.*?)</span>'si",
+                "'<a href=\"$storeURL\" title=\"\">(.*?)</a>'si",
+                "'<span class=\"store-location\">(.*?)</span>'si",
+                "'<span class=\"store-time\">(.*?)<em>(.*?)</em></span>'si",
+            );
+
+            $store_items = array(
+                'store_number',
+                'store_name',
+                'store_location',
+                'store_since',
+            );
+
+            $i = 0;
+            foreach ($regex as $re) {
+                preg_match($re, $data, $match);
+
+                $result = trim(end($match));
+                $product_data[$store_items[$i]] = urldecode(preg_replace('/\s+/', ' ', $result));
+                $i++;
+            }
+        }
+
+        return $product_data;
     }
 
     /**
