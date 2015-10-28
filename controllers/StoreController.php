@@ -73,7 +73,7 @@ class StoreController extends Controller
 
     /**
      * Import/Scrap a new Store model.
-     * If creation is successful, the browser will be redirected to the 'update' page.
+     * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionImport()
