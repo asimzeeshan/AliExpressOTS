@@ -122,7 +122,7 @@ class PackageController extends Controller
             $model->product_url = $product_url;
             $model->price       = substr($scraped['price'], 0, 5);
             $model->description = substr($scraped['name'], 0, 75);
-            $model->status      = "Awaiting Payment Confirmation";
+            $model->status      = "Awaiting Shipment";
             $model->notes = "Import request Initiated from IP '".Yii::$app->request->userIP."'\n".
                             "Data scrapped from ".$product_url;
             $model->save();
