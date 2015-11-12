@@ -37,7 +37,18 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Dashboard', 'url' => ['/site/index']],
-            ['label' => 'Packages', 'url' => ['/package?PackageSearch%5Bstatus%5D=Awaiting+delivery']],
+            [
+                'label' => 'Packages',
+                'items' => [
+                    ['label' => 'All', 'url' => ['/package']],
+                    ['label' => 'Awaiting Shipment', 'url' => ['/package?PackageSearch%5Bstatus%5D=Awaiting+Shipment']],
+                    ['label' => 'Awaiting Delivery', 'url' => ['/package?PackageSearch%5Bstatus%5D=Awaiting+delivery']],
+                    ['label' => 'Cancelled', 'url' => ['/package?PackageSearch%5Bstatus%5D=Cancelled']],
+                    ['label' => 'Delivered', 'url' => ['/package?PackageSearch%5Bstatus%5D=Delivered']],
+                    ['label' => 'Disputed', 'url' => ['/package?PackageSearch%5Bstatus%5D=Disputed']],
+                    ['label' => 'Finished', 'url' => ['/package?PackageSearch%5Bstatus%5D=Finished']],
+                ],
+            ],
             ['label' => 'Stores', 'url' => ['/store']],
             ['label' => 'Couriers', 'url' => ['/courier']],
             ['label' => 'Payment Methods', 'url' => ['/payment-method']],
