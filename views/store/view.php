@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'store_number',
-                'value'     => $model->store_number." [".Html::a('AliExpress Store Page','http://www.aliexpress.com/store/'.$model->store_number, array('target'=>'_blank'))."]",
+                'value'     => empty($model->store_number)?"<i>N/A</i>":$model->store_number." [".Html::a('AliExpress Store Page','http://www.aliexpress.com/store/'.$model->store_number, array('target'=>'_blank'))."]",
                 'format'    => 'raw'
             ],
             'name',

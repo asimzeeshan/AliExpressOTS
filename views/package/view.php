@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'store_id',
-                'value'     => empty($model->store_id)?"<i>N/A</i>":"<b>".$model->store->name."</b>",
+                'value'     => empty($model->store_id)?"<i>N/A</i>":"<b>".$model->store->name."</b> [".Html::a('Store & order details',Url::to(['store/view', 'id' => $model->store_id]))."]",
                 'format'    => 'raw'
             ],
             [
