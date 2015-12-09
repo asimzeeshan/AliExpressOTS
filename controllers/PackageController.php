@@ -112,6 +112,8 @@ class PackageController extends Controller
                         $store_internal_id = 0;
                     }
                 }
+            } else { // if seller (store) information in unavailable
+                $store_internal_id = 133;
             }
 
             // start updating the fields with latest data
