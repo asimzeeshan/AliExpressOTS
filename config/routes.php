@@ -2,6 +2,9 @@
 use yii\web\UrlRule;
 
 return array(
+    '<controller:\w+>/<id:\d+>' => '<controller>/view',
+    '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+    '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
     'users/<alias>'=>'user-management/user',
     'roles/<alias>'=>'user-management/role',
     'permissions/<alias>'=>'user-management/permission',
@@ -11,8 +14,4 @@ return array(
     'logout'=>'user-management/auth/logout',
     'login'=>'user-management/auth/login',
     'change-own-password'=>'user-management/auth/change-own-password',
-    '<controller:\w+>/<id:\d+>' => '<controller>/view',
-    '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-    '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-
 );
