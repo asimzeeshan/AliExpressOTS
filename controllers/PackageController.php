@@ -165,44 +165,31 @@ class PackageController extends Controller
             $data = file_get_contents($storeURL);
             $product_data['store_url'] = $storeURL;
 
-            // extract 'store-number'
-            //preg_match("'<span class=\"store-number\">(.*?)</span>'si", $data, $match);
+            // since 'store-number' is the same as 'store_id', lets save some computations
             $product_data['store_number'] = $product_data['store_id'];
 
-            // extract 'store_name'
-            preg_match("'<a href=\"$storeURL\" title=\"\">(.*?)</a>'si", $data, $match);
-            $product_data['store_name'] = urldecode(preg_replace('/\s+/', ' ', trim(end($match))));
+            $regex = array(
+                //"'<span class=\"store-number\">(.*?)</span>'si",
+                "'<a href=\"$storeURL\" title=\"\">(.*?)</a>'si",
+                "'<span class=\"store-location\">(.*?)</span>'si",
+                "'<span class=\"store-time\">(.*?)<em>(.*?)</em></span>'si",
+            );
 
-            // extract 'store_location'
-            preg_match("'<span class=\"store-location\">(.*?)</span>'si", $data, $match);
-            $product_data['store_location'] = urldecode(preg_replace('/\s+/', ' ', trim(end($match))));
+            $store_items = array(
+                //'store_number',
+                'store_name',
+                'store_location',
+                'store_since',
+            );
 
-            // extract 'store_since'
-            preg_match("'<span class=\"store-time\">(.*?)<em>(.*?)</em></span>'si", $data, $match);
-            $product_data['store_since'] = urldecode(preg_replace('/\s+/', ' ', trim(end($match))));
+            $i = 0;
+            foreach ($regex as $re) {
+                preg_match($re, $data, $match);
 
-//            $regex = array(
-//                "'<span class=\"store-number\">(.*?)</span>'si",
-//                "'<a href=\"$storeURL\" title=\"\">(.*?)</a>'si",
-//                "'<span class=\"store-location\">(.*?)</span>'si",
-//                "'<span class=\"store-time\">(.*?)<em>(.*?)</em></span>'si",
-//            );
-//
-//            $store_items = array(
-//                'store_number',
-//                'store_name',
-//                'store_location',
-//                'store_since',
-//            );
-//
-//            $i = 0;
-//            foreach ($regex as $re) {
-//                preg_match($re, $data, $match);
-//
-//                $result = trim(end($match));
-//                $product_data[$store_items[$i]] = urldecode(preg_replace('/\s+/', ' ', $result));
-//                $i++;
-//            }
+                $result = trim(end($match));
+                $product_data[$store_items[$i]] = urldecode(preg_replace('/\s+/', ' ', $result));
+                $i++;
+            }
         }
 
         return $product_data;
